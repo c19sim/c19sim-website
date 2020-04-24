@@ -1,0 +1,99 @@
+html,
+body {
+  background: #111;
+}
+canvas {
+  background: black;
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+section {
+  margin: 10vh auto;
+  max-width: 1000px;
+  width: 95%;
+  position: relative;
+}
+#overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 25%;
+  padding: 3rem;
+  box-sizing: border-box;
+  width: 100%;
+  -webkit-transition: opacity 250ms ease-in-out;
+  transition: opacity 250ms ease-in-out;
+  opacity: 0;
+  color: white;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  -webkit-box-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+          align-items: center;
+  background: rgba(0, 0, 0, 0.9);
+}
+#overlay.active {
+  opacity: 1;
+}
+
+#overlay p {
+  margin-bottom: 1rem;
+  text-align: center;
+}
+#overlay a {
+  color: #00d1b2;
+  text-decoration: none;
+}
+
+section > div.info {
+  display: -webkit-box;
+  display: flex;
+  align-content: center;
+  -webkit-box-align: center;
+          align-items: center;
+  flex-wrap: wrap;
+
+  border-top: 1px solid #111;
+  background: black;
+}
+
+section > div.info canvas {
+  -webkit-box-flex: 1;
+          flex: 1;
+  background: transparent;
+}
+section > div.info ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  text-align: center;
+  color: white;
+  padding: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+@media (min-width: 600px) {
+  section > div.info canvas {
+    width: calc(100% - 200px - 1rem);
+  }
+  section > div.info ul {
+    width: 200px;
+  }
+}
+
+li {
+  width: 100%;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: justify;
+          justify-content: space-between;
+}
