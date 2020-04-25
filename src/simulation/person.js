@@ -9,11 +9,10 @@ class Person {
             Math.random() * (this.height - this.radius * 2) + this.radius);
 
         this.quarantined = quarantined;
-        this.sick = sick;
         this.vulnerable = vulnerable;
         this.sickFrame = 0;
-        this.recovered = false;
         this.angle = Math.random() * 360;
+        this.status = sick ? STATUSES.sick : STATUSES.healthy;
         this.updateVelocity();
     }
 
@@ -52,22 +51,21 @@ class Person {
 
     tick(population) {
         this.handleReflection();
-        if (this.sick) {
+        if (this.status === STATUSES.sick) {
             population.forEach(person => {
-                if (!person.recovered && !person.sick && this.collide(person)) {
-                    person.sick = true;
+                if (person.status === STATUSES.healthy && this.collide(person)) {
+                    person.status = STATUSES.sick;
                 }
             });
             this.sickFrame++;
         }
-        if (!this.quarantined && !this.dead) {
+        if (!this.quarantined && this.status !== STATUSES.dead) {
             this.position.x += this.velocity.x;
             this.position.y += this.velocity.y;
         }
         if (this.sickFrame >= SICK_TIMEFRAME) {
-            this.sick = false;
-            this.recovered = true;
-            if (this.vulnerable) this.dead = true;
+            this.status = STATUSES.recovered;
+            if (this.vulnerable) this.status = STATUSES.dead;
         }
     }
 

@@ -30,12 +30,12 @@ class Population {
         });
     }
 
-    draw({ dead, position, recovered, sick }) {
-        this.context.fillStyle = sick ?
+    draw({ status, position }) {
+        this.context.fillStyle =  status === STATUSES.sick ?
             COLOR.sick :
-            dead ?
+            status === STATUSES.dead  ?
                 COLOR.dead :
-                recovered ?
+                status === STATUSES.recovered ?
                     COLOR.recovered :
                     COLOR.healthy;
         this.context.beginPath();
