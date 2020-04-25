@@ -4,22 +4,21 @@ class Person {
         this.width = width;
         this.height = height;
         this.radius = radius;
-        this.position = new Vector(
-            Math.random() * (this.width - this.radius * 2) + this.radius,
-            Math.random() * (this.height - this.radius * 2) + this.radius);
-
         this.quarantined = quarantined;
         this.vulnerable = vulnerable;
         this.contaminationRadius = radius * contaminationFactor;
         this.sickFrame = 0;
-        this.angle = Math.random() * 360;
         this.status = sick ? STATUSES.sick : STATUSES.healthy;
         this.hygienePenalty = hygienePenalty;
         this.swerveProb = 0.1;
-        this.updateVelocity();
+        this.initialiseMotion();
     }
 
-    updateVelocity() {
+    initialiseMotion() {
+        this.angle = Math.random() * 360;
+        this.position = new Vector(
+            Math.random() * (this.width - this.radius * 2) + this.radius,
+            Math.random() * (this.height - this.radius * 2) + this.radius);
         this.velocity = {
             x: Math.cos(RADIANS(this.angle)) * SPEED,
             y: -Math.sin(RADIANS(this.angle)) * SPEED
@@ -40,40 +39,9 @@ class Person {
         this.velocity.y = newVelocityY;
     }
 
-    get edge() {
-        return {
-            bottom: this.position.y + this.radius,
-            left: this.position.x - this.radius,
-            right: this.position.x + this.radius,
-            top: this.position.y - this.radius
-        };
-
-    }
-
-    reflect({ velocity }) {
-        const x = this.velocity.x * velocity.x;
-        const y = this.velocity.y * velocity.y;
-        const d = 2 * (x + y);
-        this.velocity.x -= d * velocity.x;
-        this.velocity.y -= d * velocity.y;
-    }
-
-    infected({ id, position }) {
-        const dx = this.position.x - position.x;
-        const dy = this.position.y - position.y;
-        const d = Math.sqrt(dx * dx + dy * dy);
-        const infectionProb = this.hygienePenalty * (1 - d / this.contaminationRadius);
-        return id !== this.id && d < this.contaminationRadius && Math.random() < infectionProb;
-    }
-
     tick(population) {
         this.handleReflection();
         if (this.status === STATUSES.sick) {
-            population.forEach(person => {
-                if (person.status === STATUSES.healthy && this.infected(person)) {
-                    person.status = STATUSES.sick;
-                }
-            });
             this.sickFrame++;
         }
         if (!this.quarantined && this.status !== STATUSES.dead) {
@@ -92,5 +60,63 @@ class Person {
         if (this.edge.top <= 0) this.reflect(WALLS.N);
         if (this.edge.bottom >= this.height) this.reflect(WALLS.S);
         if (this.edge.bottom <= this.height - 50 && this.edge.top >= 50 && this.edge.right <= this.width - 50 && this.edge.left >= 50) this.swerveParticle();
+    }
+
+    get edge() {
+        return {
+            bottom: this.position.y + this.radius,
+            left: this.position.x - this.radius,
+            right: this.position.x + this.radius,
+            top: this.position.y - this.radius
+        };
+
+    }
+
+    reflect({ velocity }) {
+        const x = this.velocity.x * velocity.x;
+        const y = this.velocity.y * velocity.y;
+        const d = 2 * (x + y);
+        this.velocity.x -= d * velocity.x;
+        this.velocity.y -= d * velocity.y;
+    }
+
+    handleContact(person){
+        if(person.id === this.id){
+            return;
+        }
+
+        const d = this.distanceBetween(person);
+        if(d < this.contaminationRadius){
+            // handle any infectious consequences
+            this.attemptsToInfect(person, d);
+            person.attemptsToInfect(this, d);
+        }
+
+        // handle any other consequences
+        //   e.g. exchange tracing info
+    }
+
+    attemptsToInfect(person, distance) {
+        if(this.status !== STATUSES.sick) { 
+            return;
+        }
+
+        const infectionProb = this.hygienePenalty * (1 - distance / this.contaminationRadius);
+        if(Math.random() < infectionProb) {
+            person.getsInfected();
+        }
+    }
+
+    getsInfected(){
+        if (this.status === STATUSES.healthy) {
+            this.status = STATUSES.sick;
+        }
+    }
+
+    distanceBetween(person){
+        const dx = this.position.x - person.position.x;
+        const dy = this.position.y - person.position.y;
+        const d = Math.sqrt(dx * dx + dy * dy);
+        return d;
     }
 };
