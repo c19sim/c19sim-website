@@ -108,7 +108,6 @@ function init() {
   // 2. setup the scroller passing options
   // 		this will also initialize trigger observations
   // 3. bind scrollama event handlers (this can be chained like below)
-
   scrollers['explanation1']
     .setup({
       step: "#animation-scroll-1 article .step",
@@ -138,8 +137,6 @@ function init() {
     })
     .onStepEnter(response => handleStepEnter(response, 'scenario2'))
     .onStepProgress(response => handleStepProgress(response, 'scenario2'));
-
-  
 
   // setup resize event
   window.addEventListener("resize", handleResize);
