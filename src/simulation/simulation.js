@@ -1,6 +1,7 @@
 const $overlay = document.getElementById("overlay");
 const $quarantine = document.getElementById("quarantine");
 const $hygiene = document.getElementById("hygiene");
+const $tests = document.getElementById("icu");
 const $run = document.getElementById("run");
 
 function bindEvent(element, eventName, eventHandler) {
@@ -37,7 +38,13 @@ $run.addEventListener("click", () => {
     var scenarioId = getScenarioId();
     const scenario = new Scenario();
     scenario.configure(scenarioId);
-    const pop = new Population(scenario.population.size, scenario.behaviour.quarantineRate, scenario.population.patientZeroes, scenario.behaviour.hygieneLevel);
+    var filledICUs = 0;
+    const pop = new Population(
+        scenario.population.size, 
+        scenario.behaviour.quarantineRate, 
+        scenario.population.patientZeroes, 
+        scenario.behaviour.hygieneLevel, 
+        scenario.behaviour.testPercentage);
     const graph = new Graph(pop);
     graph.context.clearRect(0, 0, graph.width, graph.height);
     $overlay.classList.remove("active");
@@ -62,7 +69,8 @@ class Scenario {
             quarantineRate: 0.5,
             socialDistanceRate: 0.75,
             socialDistanceDiscipline: 0.6,
-            hygieneLevel: 0
+            hygieneLevel: 0,
+            testPercentage: 0
         };
         this.virus = {
             incubationTime: 4,
@@ -78,6 +86,7 @@ class Scenario {
                 this.behaviour.socialDistanceRate = parseFloat($quarantine.value);
                 this.behaviour.quarantineRate = parseFloat($quarantine.value);
                 this.behaviour.hygieneLevel = parseFloat($hygiene.value);
+                this.behaviour.testPercentage = parseFloat($tests.value);
                 break;
             default:
         }

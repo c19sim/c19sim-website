@@ -24,7 +24,7 @@ class Graph {
 
         let recovered = this.population.people.filter((x) => { return x.status === STATUSES.recovered; }).length;
         let healthy = this.population.people.filter((x) => { return x.status === STATUSES.healthy; }).length;
-        let sick = this.population.people.filter((x) => { return x.status === STATUSES.sick; }).length;
+        let sick = this.population.people.filter((x) => { return x.status === STATUSES.sick || x.status === STATUSES.critical; }).length;
         let dead = this.population.people.filter((x) => { return x.status === STATUSES.dead; }).length;
 
         const total = dead + recovered + healthy + sick;
