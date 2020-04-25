@@ -1,5 +1,5 @@
 class Person {
-    constructor(id, radius, width, height, sick, quarantined, vulnerable, contaminationFactor) {
+    constructor(id, radius, width, height, sick, quarantined, vulnerable, contaminationFactor, hygienePenalty) {
         this.id = id;
         this.width = width;
         this.height = height;
@@ -14,6 +14,7 @@ class Person {
         this.sickFrame = 0;
         this.angle = Math.random() * 360;
         this.status = sick ? STATUSES.sick : STATUSES.healthy;
+        this.hygienePenalty = hygienePenalty;
         this.updateVelocity();
     }
 
@@ -47,7 +48,7 @@ class Person {
         const dx = this.position.x - position.x;
         const dy = this.position.y - position.y;
         const d = Math.sqrt(dx * dx + dy * dy);
-        const infectionProb = 1 - d / this.contaminationRadius;
+        const infectionProb = this.hygienePenalty * (1 - d / this.contaminationRadius);
         return id !== this.id && d < this.contaminationRadius && Math.random() < infectionProb;
     }
 
