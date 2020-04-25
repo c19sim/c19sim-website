@@ -18,6 +18,13 @@ const STATUSES = {
     healthy: 'healthy'
 };
 
+const SIMSTATUS = {
+    initialised: 'initialised',
+    running: 'running',
+    paused: 'paused',
+    finished: 'finished'
+};
+
 const RADIANS = degrees => {
     return degrees * PI / 180;
 };
