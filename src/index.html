@@ -1,49 +1,61 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <title>CodePen - Self-Quarantine Simulator (Washington Post)</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bulma/0.8.0/css/bulma.min.css'><link rel="stylesheet" href="./style.css">
+  <title>C19SIM - Covid-19 Interactive Simulator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bulma/0.8.0/css/bulma.min.css'>
+  <link rel="stylesheet" href="./style.css">
 
 </head>
+
 <body>
-<!-- partial:index.partial.html -->
-<section>
-  <canvas id="population" width="2000" height="1200"></canvas>
-  <div class="info">
-    <canvas id="graph" height="400" width="1500"></canvas>
-    <ul>
-      <li><span>Recovered</span><span id="recovered">0</span></li>
-      <li><span>Healthy</span><span id="healthy">0</span></li>
-      <li><span>Sick</span><span id="sick">0</span></li>
-      <li><span>Dead</span><span id="dead">0</span></li>
-    </ul>
-  </div>
-  <div id="overlay" class="active">
-    <p>
-      A social distance simulator based on <a href="https://www.washingtonpost.com/graphics/2020/world/corona-simulator/">the incredible work done by the Washington Post</a>.
-      This simulator assumes a 1% mortality rate.
-    </p>
-    <div class="field is-grouped">
-      <span class="select">
-        <select id="quarantine">
-          <option value="0" selected>No Social Distancing</option>
-          <option value="0.1">One-Tenth Self-Quarantine</option>
-          <option value="0.25">One Quarter Self-Quarantine</option>
-          <option value="0.33">One Third Self-Quarantine</option>
-          <option value="0.5">One Half Self-Quarantine</option>
-          <option value="0.75">Three Quarters Self-Quarantine</option>
-          <option value="1">Everyone Self-Quarantines</option>
-        </select>
-      </span>
-      &nbsp;
-      <button class="button is-primary" id="run">Run</button>
+  <!-- partial:index.partial.html -->
+  <section>
+    <canvas id="population" width="2000" height="1200"></canvas>
+    <div class="info">
+      <canvas id="graph" height="400" width="1500"></canvas>
+      <ul>
+        <li><span>Recovered</span><span id="recovered">0</span></li>
+        <li><span>Healthy</span><span id="healthy">0</span></li>
+        <li><span>Sick</span><span id="sick">0</span></li>
+        <li><span>Dead</span><span id="dead">0</span></li>
+      </ul>
     </div>
-  </div>
-</section>
-<!-- partial -->
-  <script  src="./script.js"></script>
+    <div id="overlay" class="active">
+      <p>
+        A social distance simulator based on <a
+          href="https://www.washingtonpost.com/graphics/2020/world/corona-simulator/">the incredible work done by the
+          Washington Post</a>.
+        This simulator assumes a 1% mortality rate.
+      </p>
+      <div class="field is-grouped">
+        <span class="select">
+          <select id="quarantine">
+            <option value="0" selected>No Social Distancing</option>
+            <option value="0.1">One-Tenth Self-Quarantine</option>
+            <option value="0.25">One Quarter Self-Quarantine</option>
+            <option value="0.33">One Third Self-Quarantine</option>
+            <option value="0.5">One Half Self-Quarantine</option>
+            <option value="0.75">Three Quarters Self-Quarantine</option>
+            <option value="1">Everyone Self-Quarantines</option>
+          </select>
+        </span>
+        &nbsp;
+        <button class="button is-primary" id="run">Run</button>
+      </div>
+    </div>
+  </section>
+  <!-- partial -->
+  <script src="./global.js"></script>
+  <script src="./map.js"></script>
+  <script src="./graph.js"></script>
+  <script src="./person.js"></script>
+  <script src="./population.js"></script>
+  <script src="./simulation.js"></script>
 
 </body>
+
 </html>
