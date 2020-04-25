@@ -4,21 +4,27 @@ var main = d3.select("main");
 
 function ScrollElements(scrollyId) {
   this.scrolly = main.select("#" + scrollyId);
-  this.figure = this.scrolly.select("figure");
+  if (scrollyId.startsWith('simulation')) {
+    this.figure = this.scrolly.select("figure");
+  } else {
+    this.figure = this.scrolly.select(".explanation-wrapper");
+  }
   this.article = this.scrolly.select("article");
   this.step = this.article.selectAll(".step");
   this.stepText = this.scrolly.selectAll(".step-text");
 }
 
 var scrollElements = {
-  'scenario1': new ScrollElements('scrolly'),
-  'scenario2': new ScrollElements('scrolly2'),
+  'explanation1': new ScrollElements('animation-scroll-1'),
+  'scenario1': new ScrollElements('simulation-scroll-1'),
+  'scenario2': new ScrollElements('simulation-scroll-2'),
 }
 
 // initialize the scrollama
 var scrollers = {
+  'explanation1': scrollama(),
   'scenario1': scrollama(),
-  'scenario2': scrollama()
+  'scenario2': scrollama(),
 };
 
 // generic window resize listener event
@@ -72,9 +78,9 @@ function handleStepProgress(response, scrollyId) {
 function handleStepEnter(response, scrollyId) {
   // Send messages to cancel every simulation other than the current one.
   Object.keys(scrollers).forEach(key => {
-    if (key != scrollyId) {
+    if (key != scrollyId && scrollyId.startsWith('scenario')) {
       var iframe = document.getElementById(key);
-      iframe.contentWindow.postMessage(MESSAGE_TYPE.pause_sim, '*');
+      iframe && iframe.contentWindow.postMessage(MESSAGE_TYPE.pause_sim, '*');
     }
   });
 
@@ -103,9 +109,19 @@ function init() {
   // 		this will also initialize trigger observations
   // 3. bind scrollama event handlers (this can be chained like below)
 
+  scrollers['explanation1']
+    .setup({
+      step: "#animation-scroll-1 article .step",
+      offset: 0.33,
+      debug: true,
+      progress: true
+    })
+    .onStepEnter(response => handleStepEnter(response, 'explanation1'))
+    .onStepProgress(response => handleStepProgress(response, 'explanation1'));
+
   scrollers['scenario1']
     .setup({
-      step: "#scrolly article .step",
+      step: "#simulation-scroll-1 article .step",
       offset: 0.33,
       debug: true,
       progress: true
@@ -115,13 +131,15 @@ function init() {
 
   scrollers['scenario2']
     .setup({
-      step: "#scrolly2 article .step",
+      step: "#simulation-scroll-2 article .step",
       offset: 0.33,
       debug: true,
       progress: true
     })
     .onStepEnter(response => handleStepEnter(response, 'scenario2'))
     .onStepProgress(response => handleStepProgress(response, 'scenario2'));
+
+  
 
   // setup resize event
   window.addEventListener("resize", handleResize);

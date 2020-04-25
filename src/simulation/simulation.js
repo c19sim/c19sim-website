@@ -13,7 +13,6 @@ function bindEvent(element, eventName, eventHandler) {
 
 // Listen to messages from parent window
 bindEvent(window, 'message', function (e) {
-    console.log('Caught the event!', e);
     switch(e.data) {
         case MESSAGE_TYPE.pause_sim:
             // TODO: pause all simulations
@@ -22,9 +21,10 @@ bindEvent(window, 'message', function (e) {
     results.innerHTML = e.data;
 });
 
+// Get the scenario ID from the query string passed to the iframe.
+// This lets us instantiate the simulation correctly.
 function getScenarioId() {
     var params = location.href.split('?')[1].split('&');
-    console.log('params', params);
     data = {};
     for (x in params)
     {
