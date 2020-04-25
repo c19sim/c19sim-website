@@ -22,14 +22,20 @@ $run.addEventListener("click", () => {
 
 class Scenario {
     constructor(){
-        this.population.size = 1000;
-        this.population.patientZeroes = 3;
-        this.behaviour.quarantineRate = 0.5;
-        this.behaviour.socialDistanceRate = 0.75;
-        this.behaviour.socialDistanceDiscipline = 0.6;
-        this.virus.incubationTime = 4;
-        this.virus.symptomLagTime = 8;
-        this.virus.RecoveryTime = 16;
+        this.population = {
+            size: 1000, 
+            patientZeroes: 3
+        };
+        this.behaviour = {
+            quarantineRate: 0.5,
+            socialDistanceRate: 0.75,
+            socialDistanceDiscipline: 0.6
+        };
+        this.virus = {
+            incubationTime: 4,
+            symptomLagTime: 8,
+            RecoveryTime: 16
+        };
     }
 
     configure(id){
