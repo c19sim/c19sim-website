@@ -22,23 +22,23 @@ class Person {
 
     updateVelocity() {
         this.velocity = {
-            x: Math.sin(RADIANS(this.angle)) * SPEED,
-            y: -Math.cos(RADIANS(this.angle)) * SPEED
+            x: Math.cos(RADIANS(this.angle)) * SPEED,
+            y: -Math.sin(RADIANS(this.angle)) * SPEED
         };
-
     }
 
+    /**
+     * Swerves particles randomly through a number of degrees.
+     */
     swerveParticle() {
-        let angle = 10
-        let magnitudeBefore =  Math.sqrt(this.velocity.x ** 2 + this.velocity.y **2);
-        this.velocity.x = (Math.random() <= this.swerveProb) ? this.velocity.x * Math.cos(RADIANS(angle)) - this.velocity.y * Math.sin(RADIANS(angle)) : this.velocity.x;
-        this.velocity.y = (Math.random() <= this.swerveProb) ? this.velocity.x * Math.sin(RADIANS(angle)) + this.velocity.y * Math.cos(RADIANS(angle)) : this.velocity.y;
-        let magnitudeAfter =  Math.sqrt(this.velocity.x ** 2 + this.velocity.y **2);
-        if (magnitudeBefore !== magnitudeAfter) {
-            console.log(magnitudeBefore);
-            console.log(magnitudeAfter);
-        }
-
+        let angleRad = (2*Math.random() - 1)*RADIANS(15);
+        let swerve = Math.random() < this.swerveProb;
+        let cos = Math.cos(angleRad);
+        let sin = Math.sin(angleRad);
+        let newVelocityX = swerve ? (this.velocity.x * cos) - (this.velocity.y * sin) : this.velocity.x;
+        let newVelocityY = swerve ? (this.velocity.x * sin) + (this.velocity.y * cos) : this.velocity.y;
+        this.velocity.x = newVelocityX;
+        this.velocity.y = newVelocityY;
     }
 
     get edge() {
