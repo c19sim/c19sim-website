@@ -13,7 +13,6 @@ class Person {
         this.contaminationRadius = radius * contaminationFactor;
         this.sickFrame = 0;
         this.angle = Math.random() * 360;
-
         this.status = sick ? STATUSES.sick : STATUSES.healthy;
         this.hygienePenalty = hygienePenalty;
         this.swerveProb = 0.1;
