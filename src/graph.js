@@ -31,6 +31,12 @@ class Graph {
                     if (person.sick) sick++; else
                         healthy++;
         });
+
+        // let recovered = this.population.people.filter((x) => { return x.recovered; }).length;
+        // let healthy = this.population.people.filter((x) => { return x.healthy; }).length;
+        // let sick = this.population.people.filter((x) => { return x.sick; }).length;
+        // let dead = this.population.people.filter((x) => { return x.dead; }).length;
+
         const total = dead + recovered + healthy + sick;
 
         const recoveredH = recovered / total * this.height;
