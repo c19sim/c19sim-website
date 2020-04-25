@@ -58,12 +58,12 @@ class Person {
                     person.sick = true;
                 }
             });
+            this.sickFrame++;
         }
         if (!this.quarantined && !this.dead) {
             this.position.x += this.velocity.x;
             this.position.y += this.velocity.y;
         }
-        if (this.sick) this.sickFrame++;
         if (this.sickFrame >= SICK_TIMEFRAME) {
             this.sick = false;
             this.recovered = true;
