@@ -1,6 +1,6 @@
 class Population {
     constructor(size, quarantineRate, patientZeroes) {
-        this.people = [];
+        this.people = new Array(size);
         this.canvas = document.getElementById("population");
         this.context = this.canvas.getContext("2d");
         this.width = this.canvas.width;
