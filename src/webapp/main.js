@@ -74,7 +74,7 @@ function handleStepEnter(response, scrollyId) {
   Object.keys(scrollers).forEach(key => {
     if (key != scrollyId) {
       var iframe = document.getElementById(key);
-      iframe.contentWindow.postMessage(key, '*');
+      iframe.contentWindow.postMessage(MESSAGE_TYPE.pause_sim, '*');
     }
   });
 

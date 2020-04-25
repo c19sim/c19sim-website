@@ -14,7 +14,11 @@ function bindEvent(element, eventName, eventHandler) {
 // Listen to messages from parent window
 bindEvent(window, 'message', function (e) {
     console.log('Caught the event!', e);
-    // TODO: pause all simulations
+    switch(e.data) {
+        case MESSAGE_TYPE.pause_sim:
+            // TODO: pause all simulations
+            console.log('Pause all simulations');
+    }
     results.innerHTML = e.data;
 });
 

@@ -39,3 +39,7 @@ class Vector {
         this.y = y;
     }
 };
+
+const MESSAGE_TYPE = {
+    pause_sim: 1,
+};
