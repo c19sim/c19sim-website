@@ -28,7 +28,7 @@ bindEvent(window, 'message', function (e) {
 $canvas.addEventListener("click", () => { pauseSimulation(); });
 
 function pauseSimulation(){
-    if(simulation || simulation.simStatus === SIMSTATUS.running){
+    if(simulation && simulation.simStatus === SIMSTATUS.running){
         simulation.pause();
         $overlay.classList.add("active");
     }    
