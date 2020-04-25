@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Interactive Covid-19</title>
+    <meta name="description" content="Interactive Covid-19 Simulation" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="../webapp/style.css" />
+  </head>
+
+  <body>
+    <main>
+      <nav>
+      </nav>
+      <section id="intro">
+        <h1 class="intro__hed">Interactive Covid-19</h1>
+        <p class="intro__dek">
+          A dashboard to explain various techniques employed to tackle Covid-19
+        </p>
+      </section>
+
+      <section id="scrolly">
+        <article>
+          <div class="step" data-step="1">
+            <div class="step-text" style="position: absolute">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sit amet mi at neque ornare pretium. Curabitur eget mattis nunc, ac mattis massa. Nam euismod ultrices velit, eget facilisis urna sollicitudin nec. Nullam quis rhoncus odio. Duis ex mi, laoreet vel rutrum a, fringilla nec metus. Integer congue non justo nec interdum.</div>
+          </div>
+          <div class="step" data-step="2">
+            <div class="step-text" style="position: absolute">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sit amet mi at neque ornare pretium. Curabitur eget mattis nunc, ac mattis massa. Nam euismod ultrices velit, eget facilisis urna sollicitudin nec. Nullam quis rhoncus odio. Duis ex mi, laoreet vel rutrum a, fringilla nec metus. Integer congue non justo nec interdum.</div>
+          </div>
+          <div class="step" data-step="3">
+            <div class="step-text" style="position: absolute">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sit amet mi at neque ornare pretium. Curabitur eget mattis nunc, ac mattis massa. Nam euismod ultrices velit, eget facilisis urna sollicitudin nec. Nullam quis rhoncus odio. Duis ex mi, laoreet vel rutrum a, fringilla nec metus. Integer congue non justo nec interdum.</div>
+          </div>
+        </article>
+        
+        <figure>
+          <div class="sim-wrapper">
+            <object class="sim" data="../simulation/index.html"></object>
+          </div>
+        </figure>
+      </section>
+
+      <section id="outro"></section>
+    </main>
+
+    <!-- <div class='debug'></div> -->
+    <script src="https://unpkg.com/d3@5.9.1/dist/d3.min.js"></script>
+    <script src="https://unpkg.com/intersection-observer@0.5.1/intersection-observer.js"></script>
+    <script src="../webapp/stickyfill.min.js"></script>
+    <script src="../webapp/scrollama.min.js"></script>
+    <script src="../webapp/main.js"></script>
+  </body>
+</html>
