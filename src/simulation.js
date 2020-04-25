@@ -13,17 +13,17 @@ $run.addEventListener("click", () => {
     function run() {
         pop.tick();
         graph.tick();
-        if (graph.done) $overlay.classList.add("active");else
-        requestAnimationFrame(run);
+        if (graph.done) $overlay.classList.add("active"); else
+            requestAnimationFrame(run);
     }
 
     run();
 });
 
 class Scenario {
-    constructor(){
+    constructor() {
         this.population = {
-            size: 1000, 
+            size: 1000,
             patientZeroes: 3
         };
         this.behaviour = {
@@ -38,12 +38,12 @@ class Scenario {
         };
     }
 
-    configure(id){
-        switch(id) {
+    configure(id) {
+        switch (id) {
             case 1:
                 this.behaviour.socialDistanceRate = parseFloat($quarantine.value);
-              break;
+                break;
             default:
-          } 
+        }
     }
 }
