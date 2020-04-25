@@ -1,5 +1,5 @@
 class Person {
-    constructor(id, radius, width, height, sick, quarantined, vulnerable) {
+    constructor(id, radius, width, height, sick, quarantined, vulnerable, contaminationFactor) {
         this.id = id;
         this.width = width;
         this.height = height;
@@ -10,6 +10,7 @@ class Person {
 
         this.quarantined = quarantined;
         this.vulnerable = vulnerable;
+        this.contaminationRadius = radius * contaminationFactor;
         this.sickFrame = 0;
         this.angle = Math.random() * 360;
         this.status = sick ? STATUSES.sick : STATUSES.healthy;
@@ -42,18 +43,19 @@ class Person {
         this.velocity.y -= d * velocity.y;
     }
 
-    collide({ id, position }) {
+    infected({ id, position }) {
         const dx = this.position.x - position.x;
         const dy = this.position.y - position.y;
         const d = Math.sqrt(dx * dx + dy * dy);
-        return id !== this.id && d < this.radius * 2;
+        const infectionProb = 1 - d / this.contaminationRadius;
+        return id !== this.id && d < this.contaminationRadius && Math.random() < infectionProb;
     }
 
     tick(population) {
         this.handleReflection();
         if (this.status === STATUSES.sick) {
             population.forEach(person => {
-                if (person.status === STATUSES.healthy && this.collide(person)) {
+                if (person.status === STATUSES.healthy && this.infected(person)) {
                     person.status = STATUSES.sick;
                 }
             });
