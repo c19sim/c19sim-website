@@ -1,5 +1,5 @@
 class Population {
-    constructor(size, quarantineRate, patientZeroes) {
+    constructor(size, quarantineRate, patientZeroes, contaminationFactor = 2) {
         this.people = new Array(size);
         this.canvas = document.getElementById("population");
         this.context = this.canvas.getContext("2d");
@@ -18,7 +18,8 @@ class Population {
                     this.height,
                     sick,
                     quarantined,
-                    vulnerable));
+                    vulnerable,
+                    contaminationFactor));
         }
     }
 
