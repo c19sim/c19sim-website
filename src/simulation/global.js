@@ -22,6 +22,11 @@ const RADIANS = degrees => {
     return degrees * PI / 180;
 };
 
+const DEGREES = radians => {
+    return radians * 180 / PI;
+};
+
+
 const NORMAL = degrees => {
     return { x: Math.sin(RADIANS(degrees)), y: -Math.cos(RADIANS(degrees)) };
 };

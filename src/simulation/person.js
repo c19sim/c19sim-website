@@ -13,8 +13,10 @@ class Person {
         this.contaminationRadius = radius * contaminationFactor;
         this.sickFrame = 0;
         this.angle = Math.random() * 360;
+
         this.status = sick ? STATUSES.sick : STATUSES.healthy;
         this.hygienePenalty = hygienePenalty;
+        this.swerveProb = 0.1;
         this.updateVelocity();
     }
 
@@ -23,6 +25,19 @@ class Person {
             x: Math.sin(RADIANS(this.angle)) * SPEED,
             y: -Math.cos(RADIANS(this.angle)) * SPEED
         };
+
+    }
+
+    swerveParticle() {
+        let angle = 10
+        let magnitudeBefore =  Math.sqrt(this.velocity.x ** 2 + this.velocity.y **2);
+        this.velocity.x = (Math.random() <= this.swerveProb) ? this.velocity.x * Math.cos(RADIANS(angle)) - this.velocity.y * Math.sin(RADIANS(angle)) : this.velocity.x;
+        this.velocity.y = (Math.random() <= this.swerveProb) ? this.velocity.x * Math.sin(RADIANS(angle)) + this.velocity.y * Math.cos(RADIANS(angle)) : this.velocity.y;
+        let magnitudeAfter =  Math.sqrt(this.velocity.x ** 2 + this.velocity.y **2);
+        if (magnitudeBefore !== magnitudeAfter) {
+            console.log(magnitudeBefore);
+            console.log(magnitudeAfter);
+        }
 
     }
 
@@ -77,5 +92,6 @@ class Person {
         if (this.edge.right >= this.width) this.reflect(WALLS.E);
         if (this.edge.top <= 0) this.reflect(WALLS.N);
         if (this.edge.bottom >= this.height) this.reflect(WALLS.S);
+        if (this.edge.bottom <= this.height - 50 && this.edge.top >= 50 && this.edge.right <= this.width - 50 && this.edge.left >= 50) this.swerveParticle();
     }
 };
