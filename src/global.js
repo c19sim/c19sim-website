@@ -11,6 +11,14 @@ const COLOR = {
     healthy: "#00d1b2"
 };
 
+
+const statuses = {
+    SICK: 'sick',
+    DEAD: 'dead',
+    RECOVERED: 'recovered',
+    HEALTHY: 'healthy'
+};
+
 const RADIANS = degrees => {
     return degrees * PI / 180;
 };

@@ -30,7 +30,7 @@ class Population {
         });
     }
 
-    draw({ status, statuses, position }) {
+    draw({ status, position }) {
         this.context.fillStyle =  status === statuses.SICK ?
             COLOR.sick :
             status === statuses.DEAD  ?

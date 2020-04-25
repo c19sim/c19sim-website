@@ -29,7 +29,8 @@ class Scenario {
         this.behaviour = {
             quarantineRate: 0.5,
             socialDistanceRate: 0.75,
-            socialDistanceDiscipline: 0.6
+            socialDistanceDiscipline: 0.6,
+            hygieneLevel: 0
         };
         this.virus = {
             incubationTime: 4,
