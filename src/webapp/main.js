@@ -87,11 +87,6 @@ function handleStepEnter(response, scrollyId) {
   scrollElements[scrollyId].figure.select("p").text(response.index + 1);
 }
 
-function handleContainerExit(response) {
-  var iframe = document.getElementById('scenario1');
-  iframe.contentDocument.body.dispatchEvent(iframeEvent);
-}
-
 function setupStickyfill() {
   d3.selectAll(".sticky").each(function() {
     Stickyfill.add(this);
