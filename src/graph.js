@@ -26,9 +26,9 @@ class Graph {
         let sick = 0;
         let dead = 0;
         this.population.people.forEach(person => {
-            if (person.dead) dead++; else
-                if (person.recovered) recovered++; else
-                    if (person.sick) sick++; else
+            if (person.statuses.DEAD === person.status) dead++; else
+                if (person.status === person.statuses.RECOVERED) recovered++; else
+                    if (person.status === person.statuses.SICK) sick++; else
                         healthy++;
         });
 
