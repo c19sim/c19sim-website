@@ -2,10 +2,6 @@ const $overlay = document.getElementById("overlay");
 const $quarantine = document.getElementById("quarantine");
 const $run = document.getElementById("run");
 
-/*document.body.addEventListener('iframe-out-of-screen', () => {
-    console.log('Caught the event!');
-});*/
-
 function bindEvent(element, eventName, eventHandler) {
     if (element.addEventListener) {
         element.addEventListener(eventName, eventHandler, false);
