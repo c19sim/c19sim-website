@@ -11,17 +11,16 @@ class Population {
             const sick = i > size - patientZeroes - 1;
             const quarantined = i / size <= quarantineRate;
             const vulnerable = Math.random() < 0.01;
-            this.people.push(
-                new Person(
-                    i,
-                    this.radius,
-                    this.width,
-                    this.height,
-                    sick,
-                    quarantined,
-                    vulnerable,
-                    contaminationFactor,
-                    this.hygienePenalty));
+            this.people[i] = new Person(
+                i,
+                this.radius,
+                this.width,
+                this.height,
+                sick,
+                quarantined,
+                vulnerable,
+                contaminationFactor,
+                this.hygienePenalty);
         }
     }
 
@@ -31,6 +30,14 @@ class Population {
             this.draw(p);
             p.tick(this.people);
         });
+
+        for (let i = 0; i < this.people.length; i++) {
+            for (let n = i + 1; n < this.people.length; n++) {
+                if(this.people[i] !== null && this.people[n] !== null){
+                    this.people[i].handleContact(this.people[n]);
+                }
+            }
+        }
     }
 
     draw({ status, position }) {
