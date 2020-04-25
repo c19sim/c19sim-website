@@ -25,12 +25,6 @@
       </ul>
     </div>
     <div id="overlay" class="active">
-      <p>
-        A social distance simulator based on <a
-          href="https://www.washingtonpost.com/graphics/2020/world/corona-simulator/">the incredible work done by the
-          Washington Post</a>.
-        This simulator assumes a 1% mortality rate.
-      </p>
       <div class="field is-grouped">
         <span class="select">
           <select id="quarantine">
@@ -41,6 +35,15 @@
             <option value="0.5">One Half Self-Quarantine</option>
             <option value="0.75">Three Quarters Self-Quarantine</option>
             <option value="1">Everyone Self-Quarantines</option>
+          </select>
+        </span>
+        <span class="select">
+          <select id="hygiene">
+            <option value="0" selected>No Hygiene</option>
+            <option value="0.25">Low Hygiene</option>
+            <option value="0.5">Moderate Hygiene</option>
+            <option value="0.75">High Hygiene</option>
+            <option value="1">Maximum Hygiene</option>
           </select>
         </span>
         &nbsp;

@@ -1,10 +1,11 @@
 class Population {
-    constructor(size, quarantineRate, patientZeroes) {
+    constructor(size, quarantineRate, patientZeroes, hygieneLevel, contaminationFactor = 2) {
         this.people = new Array(size);
         this.canvas = document.getElementById("population");
         this.context = this.canvas.getContext("2d");
         this.width = this.canvas.width;
         this.height = this.canvas.height;
+        this.hygienePenalty = 1 - hygieneLevel * 0.8;
         this.radius = size < 250 ? 12 : size < 500 ? 8 : 5;
         for (let i = 0; i < size; i++) {
             const sick = i > size - patientZeroes - 1;
@@ -18,7 +19,9 @@ class Population {
                     this.height,
                     sick,
                     quarantined,
-                    vulnerable));
+                    vulnerable,
+                    contaminationFactor,
+                    this.hygienePenalty));
         }
     }
 
@@ -30,12 +33,12 @@ class Population {
         });
     }
 
-    draw({ dead, position, recovered, sick }) {
-        this.context.fillStyle = sick ?
+    draw({ status, position }) {
+        this.context.fillStyle =  status === STATUSES.sick ?
             COLOR.sick :
-            dead ?
+            status === STATUSES.dead  ?
                 COLOR.dead :
-                recovered ?
+                status === STATUSES.recovered ?
                     COLOR.recovered :
                     COLOR.healthy;
         this.context.beginPath();

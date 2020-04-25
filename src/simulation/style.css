@@ -25,10 +25,9 @@ section {
   width: 100%;
   -webkit-transition: opacity 250ms ease-in-out;
   transition: opacity 250ms ease-in-out;
-  opacity: 0;
+  opacity: 1;
   color: white;
-  display: -webkit-box;
-  display: flex;
+  display: none;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
           flex-direction: column;
@@ -39,7 +38,8 @@ section {
   background: rgba(0, 0, 0, 0.9);
 }
 #overlay.active {
-  opacity: 1;
+  display: -webkit-box;
+  display: flex;
 }
 
 #overlay p {
