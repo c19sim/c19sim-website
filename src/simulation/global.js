@@ -11,11 +11,11 @@ const COLOR = {
     healthy: "#00d1b2"
 };
 
-const statuses = {
-    SICK: 'sick',
-    DEAD: 'dead',
-    RECOVERED: 'recovered',
-    HEALTHY: 'healthy'
+const STATUSES = {
+    sick: 'sick',
+    dead: 'dead',
+    recovered: 'recovered',
+    healthy: 'healthy'
 };
 
 const RADIANS = degrees => {

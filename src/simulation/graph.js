@@ -21,21 +21,11 @@ class Graph {
     }
 
     tick() {
-        let recovered = 0;
-        let healthy = 0;
-        let sick = 0;
-        let dead = 0;
-        this.population.people.forEach(person => {
-            if (statuses.DEAD === person.status) dead++; else
-                if (person.status === statuses.RECOVERED) recovered++; else
-                    if (person.status === statuses.SICK) sick++; else
-                        healthy++;
-        });
 
-        // let recovered = this.population.people.filter((x) => { return x.recovered; }).length;
-        // let healthy = this.population.people.filter((x) => { return x.healthy; }).length;
-        // let sick = this.population.people.filter((x) => { return x.sick; }).length;
-        // let dead = this.population.people.filter((x) => { return x.dead; }).length;
+        let recovered = this.population.people.filter((x) => { return x.status === STATUSES.recovered; }).length;
+        let healthy = this.population.people.filter((x) => { return x.status === STATUSES.healthy; }).length;
+        let sick = this.population.people.filter((x) => { return x.status === STATUSES.sick; }).length;
+        let dead = this.population.people.filter((x) => { return x.status === STATUSES.dead; }).length;
 
         const total = dead + recovered + healthy + sick;
 

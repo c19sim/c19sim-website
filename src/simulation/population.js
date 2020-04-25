@@ -31,11 +31,11 @@ class Population {
     }
 
     draw({ status, position }) {
-        this.context.fillStyle =  status === statuses.SICK ?
+        this.context.fillStyle =  status === STATUSES.sick ?
             COLOR.sick :
-            status === statuses.DEAD  ?
+            status === STATUSES.dead  ?
                 COLOR.dead :
-                status === statuses.RECOVERED ?
+                status === STATUSES.recovered ?
                     COLOR.recovered :
                     COLOR.healthy;
         this.context.beginPath();
