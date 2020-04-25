@@ -2,7 +2,6 @@ class Population {
     constructor(size, quarantineRate, patientZeroes, hygieneLevel, testPercentage, contaminationFactor = 2) {
         this.counters = new Counters();
         Object.freeze(this.counters);
-        this.counters.add()
         this.people = new Array(size);
         this.canvas = document.getElementById("population");
         this.context = this.canvas.getContext("2d");

@@ -34,8 +34,6 @@ class Person {
         }
         
         if (this.status === STATUSES.critical) {
-            
-            console.log(this.criticalFrame);
             this.criticalFrame++;
         }
 
@@ -45,7 +43,7 @@ class Person {
         }
 
         // If person is sick, it gets critical if vulnerable. If vunerable, the person will die if there are no available ICU beds
-        if (this.sickFrame >= SICK_TIMEFRAME && this.status !== STATUSES.recovered) {
+        if (this.sickFrame >= SICK_TIMEFRAME && this.status !== STATUSES.recovered && this.status !== STATUSES.critical && this.status !== STATUSES.dead) {
             this.status = STATUSES.recovered;
             if (this.vulnerable) {
                 if (this.filledICUs.get() >= this.icuQuantity) {
@@ -60,7 +58,7 @@ class Person {
         }
 
         // A person in the critical state can either die or get recovered. In both cases, the bed is removed.
-        if (this.criticalFrame >= CRITICAL_TIMEFRAME && this.status !== STATUSES.recovered) {
+        if (this.criticalFrame >= CRITICAL_TIMEFRAME && this.status !== STATUSES.recovered && this.status !== STATUSES.dead) {
             this.status = (Math.random() <= CRITICAL_FATALITY_RATE) ? STATUSES.dead : STATUSES.recovered;
             this.filledICUs.remove();
         }
