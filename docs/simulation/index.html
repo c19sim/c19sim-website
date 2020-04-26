@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>C19SIM - Covid-19 Interactive Simulator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bulma/0.8.0/css/bulma.min.css'>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+
+<body>
+  <!-- partial:index.partial.html -->
+  <section>
+    <canvas id="header" width="1200" height="50"></canvas>
+    <canvas id="population" width="1200" height="550"></canvas>
+    <div class="info">
+      <ul>
+        <li><span>Recovered</span><span id="recovered">0</span></li>
+        <li><span>Healthy</span><span id="healthy">0</span></li>
+        <li><span>Sick</span><span id="sick">0</span></li>
+        <li><span>Dead</span><span id="dead">0</span></li>
+      </ul>
+      <canvas id="graph" height="200" width="1500"></canvas>
+    </div>
+    <div id="overlay" class="active">
+      <div class="field is-grouped">
+        <span class="select">
+          <select id="quarantine">
+            <option value="0" selected>Nobody Self-Quarantines</option>
+            <option value="0.25">25% Self-Quarantine</option>
+            <option value="0.5">50% Self-Quarantine</option>
+            <option value="0.75">75% Self-Quarantine</option>
+            <option value="1">Everyone Self-Quarantines</option>
+          </select>
+        </span>
+        <span class="select">
+          <select id="hygiene">
+            <option value="0" selected>No Hygiene</option>
+            <option value="0.25">Low Hygiene</option>
+            <option value="0.5">Moderate Hygiene</option>
+            <option value="0.75">High Hygiene</option>
+            <option value="1">Maximum Hygiene</option>
+          </select>
+        </span>
+        <span class="select">
+          <select id="icu">
+            <option value="0" selected>No ICUs</option>
+            <option value="0.02" >Low quantity</option>
+            <option value="0.075">High quantity</option>
+            <option value="1" >Unlimited quantity</option>
+          </select>
+        </span>
+        <span class="select">
+          <select id="tests">
+            <option value="0" selected>No testing</option>
+            <option value="0.1" >Test 10% of population</option>
+            <option value="0.3">Test 30% of population</option>
+            <option value="0.5">Test 50% of population</option>
+            <option value="0.99" >Test everyone</option>
+          </select>
+        </span>
+        &nbsp;
+        <button class="button is-primary" id="run">Run</button>
+      </div>
+    </div>
+  </section>
+  <!-- partial -->
+  <script src="./../global.js"></script>
+  <script src="./map.js"></script>
+  <script src="./graph.js"></script>
+  <script src="./person.js"></script>
+  <script src="./population.js"></script>
+  <script src="./simulation.js"></script>
+  <script src="./intensive_care.js"></script>
+  <script src="./tests.js"></script>
+
+</body>
+
+</html>
