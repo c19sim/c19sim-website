@@ -54,7 +54,7 @@ class Graph {
         // Update Time
         this.tests.setCurrentTime(this.x);
 
-        if (this.x >= this.width) this.done = true;
+        if (sick <= 0) this.done = true;
     }
 
     drawTimestep(drawData) {
