@@ -5,7 +5,6 @@ class Counters {
 
     add(){
         this._filledICUs[0] = this._filledICUs[0] + 1;
-        if (this._filledICUs[0] > 50) this._filledICUs[0] = 50;
     }
     
     get(){
