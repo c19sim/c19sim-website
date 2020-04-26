@@ -83,7 +83,7 @@ class Scenario {
             socialDistanceRate: 0.75,
             socialDistanceDiscipline: 0.6,
             hygieneLevel: 0,
-            icuPercentage: 0,
+            icuPercentage: 100,
             testPercentage: 0
         };
         this.virus = {
