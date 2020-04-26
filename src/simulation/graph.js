@@ -1,5 +1,6 @@
 class Graph {
-    constructor(population) {
+    constructor(population, tests) {
+        this.tests = tests;
         this.population = population;
         this.canvas = document.getElementById("graph");
         this.context = this.canvas.getContext("2d");
@@ -49,6 +50,9 @@ class Graph {
         this.drawTimestep(drawData);
 
         this.x++;
+
+        // Update Time
+        this.tests.setCurrentTime(this.x);
 
         if (this.x >= this.width) this.done = true;
     }

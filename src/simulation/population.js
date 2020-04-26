@@ -1,13 +1,12 @@
 class Population {
-    constructor(size, quarantineRate, patientZeroes, hygieneLevel, testPercentage, contaminationFactor = 2) {
-        this.counters = new Counters();
-        Object.freeze(this.counters);
+    constructor(size, quarantineRate, patientZeroes, hygieneLevel, icuPercentage, tests, contaminationFactor = 2) {
+        this.filledICUs = new IntensiveCare();
+        Object.freeze(this.filledICUs);
         this.people = new Array(size);
         this.header = document.getElementById("header");
         this.headerContext = this.header.getContext("2d");
         this.headerContext.font = "36px Roboto, sans-serif";
         this.headerContext.fillStyle = "red"; // set stroke color to red
-        
         this.headerContext.lineWidth = "3.5";  //  set stroke width to 1.5
         this.canvas = document.getElementById("population");
         this.context = this.canvas.getContext("2d");
@@ -15,8 +14,8 @@ class Population {
         this.height = this.canvas.height;
         this.hygienePenalty = 1 - hygieneLevel * 0.8;
         this.radius = size < 250 ? 12 : size < 500 ? 8 : 5;
-        this.icuQuantity = Math.floor(testPercentage * size);
-        console.log(this.icuQuantity);
+        this.icuQuantity = Math.floor(icuPercentage * size);
+        this.tests = tests;
         for (let i = 0; i < size; i++) {
             const sick = i > size - patientZeroes - 1;
             const quarantined = i / size <= quarantineRate;
@@ -32,8 +31,9 @@ class Population {
                 contaminationFactor,
                 this.hygienePenalty,
                 this.icuQuantity,
-                this.counters,
-                this.headerContext);
+                this.filledICUs,
+                this.headerContext,
+                this.tests);
         }
     }
 

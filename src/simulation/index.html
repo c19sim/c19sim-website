@@ -55,6 +55,15 @@
             <option value="1" >Unlimited quantity</option>
           </select>
         </span>
+        <span class="select">
+          <select id="tests">
+            <option value="0" selected>No testing</option>
+            <option value="0.1" >Test 10% of population</option>
+            <option value="0.3">Test 30% of population</option>
+            <option value="0.5">Test 50% of population</option>
+            <option value="0.99" >Test everyone</option>
+          </select>
+        </span>
         &nbsp;
         <button class="button is-primary" id="run">Run</button>
       </div>
@@ -67,7 +76,8 @@
   <script src="./person.js"></script>
   <script src="./population.js"></script>
   <script src="./simulation.js"></script>
-  <script src="./counters.js"></script>
+  <script src="./intensive_care.js"></script>
+  <script src="./tests.js"></script>
 
 </body>
 

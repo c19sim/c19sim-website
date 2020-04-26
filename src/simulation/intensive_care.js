@@ -1,17 +1,17 @@
-class Counters {
+class IntensiveCare {
     constructor(){
       this._filledICUs = [0];
     }
 
-    add(){
+    addBed(){
         this._filledICUs[0] = this._filledICUs[0] + 1;
     }
     
-    get(){
+    getBedNumbers(){
         return this._filledICUs[0]
     }
 
-    remove(){
+    releaseBed(){
       this._filledICUs[0] = this._filledICUs[0] - 1;
     }
 };
