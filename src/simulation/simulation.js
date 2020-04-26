@@ -2,6 +2,7 @@ const $overlay = document.getElementById("overlay");
 const $quarantine = document.getElementById("quarantine");
 const $hygiene = document.getElementById("hygiene");
 const $icu = document.getElementById("icu");
+const $tests = document.getElementById("tests");
 const $run = document.getElementById("run");
 const $canvas = document.getElementById("population");
 
@@ -84,7 +85,8 @@ class Scenario {
             socialDistanceRate: 0.75,
             socialDistanceDiscipline: 0.6,
             hygieneLevel: 0,
-            icuPercentage: 0
+            icuPercentage: 0,
+            testPercentage: 0
         };
         this.virus = {
             incubationTime: 4,
@@ -100,6 +102,7 @@ class Scenario {
                 this.behaviour.quarantineRate = parseFloat($quarantine.value);
                 this.behaviour.hygieneLevel = parseFloat($hygiene.value);
                 this.behaviour.icuPercentage = parseFloat($icu.value);
+                this.behaviour.testPercentage = parseFloat($tests.value);
                 break;
             default:
         }
@@ -111,15 +114,20 @@ class Simulation {
         var scenarioId = getScenarioId();
         this.scenario = new Scenario();
         this.scenario.configure(scenarioId);
+        this.tests = new Tests(TEST_TIME);
+        Object.freeze(this.tests);
+
+        this.tests.buildIDs(this.scenario.behaviour.testPercentage, this.scenario.population.size);
 
         this.population = new Population(
             this.scenario.population.size, 
             this.scenario.behaviour.quarantineRate, 
             this.scenario.population.patientZeroes, 
             this.scenario.behaviour.hygieneLevel, 
-            this.scenario.behaviour.icuPercentage);
+            this.scenario.behaviour.icuPercentage,
+            this.tests);
 
-        this.graph = new Graph(this.population);
+        this.graph = new Graph(this.population, this.tests);
 
         this.simStatus = SIMSTATUS.initialised;
     }
