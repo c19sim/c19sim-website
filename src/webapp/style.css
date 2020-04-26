@@ -125,7 +125,9 @@ nav {
 }
 
 #outro {
-  height: 640px;
+  height: 100px;
+  margin: auto;
+  width: 100%;
 }
 
 @media (min-width: 840px) {
@@ -242,4 +244,8 @@ figure p {
 
 img {
   width: 100%;
+}
+
+.spacer {
+  height: 20rem;
 }
