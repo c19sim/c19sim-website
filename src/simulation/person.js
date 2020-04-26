@@ -1,5 +1,5 @@
 class Person {
-    constructor(id, radius, width, height, sick, quarantined, vulnerable, contaminationFactor, hygienePenalty, icuQuantity, filledICUs, headerContext, tests) {
+    constructor(id, radius, width, height, sick, quarantined, vulnerable, contaminationFactor, hygienePenalty, icuQuantity, filledICUs, headerContext, tests, quarantineEffectiveness) {
         this.id = id;
         this.width = width;
         this.height = height;
@@ -12,7 +12,7 @@ class Person {
         this.status = sick ? STATUSES.sick : STATUSES.healthy;
         this.hygienePenalty = hygienePenalty;
         this.quarantineRadius = this.contaminationRadius*1.1;
-        this.quarantineEffectiveness = 0.95;
+        this.quarantineEffectiveness = quarantineEffectiveness;
         this.swerveProb = 0.1;
         this.initialiseMotion();
         this.icuQuantity = icuQuantity;
@@ -47,14 +47,11 @@ class Person {
      * Swerves particles randomly through a number of degrees.
      */
     swerveParticle() {
-        let angleRad = (2*Math.random() - 1)*RADIANS(15);
-        let swerve = Math.random() < this.swerveProb;
-        let cos = Math.cos(angleRad);
-        let sin = Math.sin(angleRad);
-        let newVelocityX = swerve ? (this.velocity.x * cos) - (this.velocity.y * sin) : this.velocity.x;
-        let newVelocityY = swerve ? (this.velocity.x * sin) + (this.velocity.y * cos) : this.velocity.y;
-        this.velocity.x = newVelocityX;
-        this.velocity.y = newVelocityY;
+        if(Math.random() < this.swerveProb)
+        {
+          let angleRad = (2*Math.random() - 1)*RADIANS(15);
+          this.rotateVelocity(angleRad );
+        }
     }
 
     tick() {

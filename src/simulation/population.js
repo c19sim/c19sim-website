@@ -14,11 +14,11 @@ class Population {
         this.height = this.canvas.height;
         this.hygienePenalty = 1 - hygieneLevel * 0.8;
         this.radius = size < 250 ? 12 : size < 500 ? 8 : 5;
-        this.quarantineRadius = this.radius;
         this.timestep = 0;
         this.contaminationFactor = contaminationFactor;
         this.icuQuantity = Math.floor(icuPercentage * size);
         this.tests = tests;
+        this.quarantineEffectiveness = 0.95;
         for (let i = 0; i < size; i++) {
             const sick = i > size - patientZeroes - 1;
             const quarantined = i / size <= quarantineRate;
@@ -36,7 +36,8 @@ class Population {
                 this.icuQuantity,
                 this.filledICUs,
                 this.headerContext,
-                this.tests);
+                this.tests,
+                this.quarantineEffectiveness);
         }
     }
 
@@ -97,7 +98,7 @@ class Population {
         this.context.fill();
         if (quarantined) {
             this.context.strokeStyle = "#FFFFFF";
-            this.context.arc(position.x, position.y, this.quarantineRadius*1.5, 0, PI2);
+            this.context.arc(position.x, position.y, this.radius*1.5, 0, PI2);
             this.context.stroke();
         }
     }
