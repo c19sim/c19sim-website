@@ -1,5 +1,5 @@
 class Person {
-    constructor(id, radius, width, height, sick, quarantined, vulnerable, contaminationFactor, hygienePenalty) {
+    constructor(id, radius, width, height, sick, quarantined, vulnerable, contaminationFactor, hygienePenalty, icuQuantity, filledICUs, headerContext) {
         this.id = id;
         this.width = width;
         this.height = height;
@@ -8,10 +8,14 @@ class Person {
         this.vulnerable = vulnerable;
         this.contaminationRadius = radius * contaminationFactor;
         this.sickFrame = 0;
+        this.criticalFrame = 0;
         this.status = sick ? STATUSES.sick : STATUSES.healthy;
         this.hygienePenalty = hygienePenalty;
         this.swerveProb = 0.1;
         this.initialiseMotion();
+        this.icuQuantity = icuQuantity;
+        this.filledICUs = filledICUs;
+        this.headerContext = headerContext;
     }
 
     initialiseMotion() {
@@ -44,13 +48,36 @@ class Person {
         if (this.status === STATUSES.sick) {
             this.sickFrame++;
         }
+        
+        if (this.status === STATUSES.critical) {
+            this.criticalFrame++;
+        }
+
         if (!this.quarantined && this.status !== STATUSES.dead) {
             this.position.x += this.velocity.x;
             this.position.y += this.velocity.y;
         }
-        if (this.sickFrame >= SICK_TIMEFRAME) {
+
+        // If person is sick, it gets critical if vulnerable. If vunerable, the person will die if there are no available ICU beds
+        if (this.sickFrame >= SICK_TIMEFRAME && this.status === STATUSES.sick) {
             this.status = STATUSES.recovered;
-            if (this.vulnerable) this.status = STATUSES.dead;
+            if (this.vulnerable) {
+                if (this.filledICUs.get() >= this.icuQuantity) {
+                    this.status = STATUSES.dead;
+                    if(this.icuQuantity > 0) this.headerContext.fillText("Maximum ICU capacity has been reached", 270, 40, 1200);
+                } else {
+                    this.status = STATUSES.critical;
+                    this.filledICUs.add();
+                }
+            
+            }
+        }
+
+        // A person in the critical state can either die or get recovered. In both cases, the bed is removed.
+        if (this.criticalFrame >= CRITICAL_TIMEFRAME && this.status === STATUSES.critical) {
+            this.status = (Math.random() <= CRITICAL_FATALITY_RATE) ? STATUSES.dead : STATUSES.recovered;
+            this.filledICUs.remove();
+            this.headerContext.clearRect(0, 0, 1200,50);
         }
     }
 
@@ -97,7 +124,7 @@ class Person {
     }
 
     attemptsToInfect(person, distance) {
-        if(this.status !== STATUSES.sick) { 
+        if(this.status !== STATUSES.sick && this.status !== STATUSES.critical) { 
             return;
         }
 
