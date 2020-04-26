@@ -16,6 +16,7 @@ function ScrollElements(scrollyId) {
 
 var scrollElements = {
   'explanation1': new ScrollElements('animation-scroll-1'),
+  'explanation2': new ScrollElements('animation-scroll-2'),
   'scenario1': new ScrollElements('simulation-scroll-1'),
   'scenario2': new ScrollElements('simulation-scroll-2'),
 }
@@ -23,6 +24,7 @@ var scrollElements = {
 // initialize the scrollama
 var scrollers = {
   'explanation1': scrollama(),
+  'explanation2': scrollama(),
   'scenario1': scrollama(),
   'scenario2': scrollama(),
 };
@@ -35,7 +37,7 @@ function handleResize() {
     var stepH = Math.floor(window.innerHeight * 0.75);
     scrollElements[key].step.style("height", stepH + "px");
     
-    var figYScale = 1.4;
+    var figYScale = key.startsWith("scenario") ? 1.4 : 2.5;
     var figureHeight = window.innerHeight / figYScale;
     var figureMarginTop = (window.innerHeight - figureHeight) / figYScale;
     
@@ -117,6 +119,16 @@ function init() {
     })
     .onStepEnter(response => handleStepEnter(response, 'explanation1'))
     .onStepProgress(response => handleStepProgress(response, 'explanation1'));
+
+  scrollers['explanation2']
+    .setup({
+      step: "#animation-scroll-2 article .step",
+      offset: 0.33,
+      debug: true,
+      progress: true
+    })
+    .onStepEnter(response => handleStepEnter(response, 'explanation2'))
+    .onStepProgress(response => handleStepProgress(response, 'explanation2'));
 
   scrollers['scenario1']
     .setup({
