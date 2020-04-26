@@ -17,10 +17,6 @@ class Tests {
         }
     }
 
-    getBedNumbers(){
-        return this._filledICUs[0]
-    }
-
     isTime(id) {
         let time = false;
         if(this._currentTime >= this._testTime) time = true
