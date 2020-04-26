@@ -18,10 +18,10 @@ class Graph {
     reset() {
         this.x = 0;
         this.done = false;
+        this.context.clearRect(0, 0, this.width, this.height);
     }
 
     tick() {
-
         let recovered = this.population.people.filter((x) => { return x.status === STATUSES.recovered; }).length;
         let healthy = this.population.people.filter((x) => { return x.status === STATUSES.healthy; }).length;
         let sick = this.population.people.filter((x) => { return x.status === STATUSES.sick || x.status === STATUSES.critical; }).length;

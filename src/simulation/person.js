@@ -11,6 +11,7 @@ class Person {
         this.criticalFrame = 0;
         this.status = sick ? STATUSES.sick : STATUSES.healthy;
         this.hygienePenalty = hygienePenalty;
+        this.swerveProb = 0.1;
         this.initialiseMotion();
         this.icuQuantity = icuQuantity;
         this.filledICUs = filledICUs;
@@ -22,9 +23,23 @@ class Person {
             Math.random() * (this.width - this.radius * 2) + this.radius,
             Math.random() * (this.height - this.radius * 2) + this.radius);
         this.velocity = {
-            x: Math.sin(RADIANS(this.angle)) * SPEED,
-            y: -Math.cos(RADIANS(this.angle)) * SPEED
+            x: Math.cos(RADIANS(this.angle)) * SPEED,
+            y: -Math.sin(RADIANS(this.angle)) * SPEED
         };
+    }
+
+    /**
+     * Swerves particles randomly through a number of degrees.
+     */
+    swerveParticle() {
+        let angleRad = (2*Math.random() - 1)*RADIANS(15);
+        let swerve = Math.random() < this.swerveProb;
+        let cos = Math.cos(angleRad);
+        let sin = Math.sin(angleRad);
+        let newVelocityX = swerve ? (this.velocity.x * cos) - (this.velocity.y * sin) : this.velocity.x;
+        let newVelocityY = swerve ? (this.velocity.x * sin) + (this.velocity.y * cos) : this.velocity.y;
+        this.velocity.x = newVelocityX;
+        this.velocity.y = newVelocityY;
     }
 
     tick(population) {
@@ -69,6 +84,7 @@ class Person {
         if (this.edge.right >= this.width) this.reflect(WALLS.E);
         if (this.edge.top <= 0) this.reflect(WALLS.N);
         if (this.edge.bottom >= this.height) this.reflect(WALLS.S);
+        if (this.edge.bottom <= this.height - 50 && this.edge.top >= 50 && this.edge.right <= this.width - 50 && this.edge.left >= 50) this.swerveParticle();
     }
 
     get edge() {
