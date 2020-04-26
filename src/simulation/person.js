@@ -64,7 +64,6 @@ class Person {
             if (this.vulnerable) {
                 if (this.filledICUs.get() >= this.icuQuantity) {
                     this.status = STATUSES.dead;
-                    console.log(this.filledICUs.get())
                     if(this.icuQuantity > 0) this.headerContext.fillText("Maximum ICU capacity has been reached", 270, 40, 1200);
                 } else {
                     this.status = STATUSES.critical;

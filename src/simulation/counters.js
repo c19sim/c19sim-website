@@ -13,6 +13,5 @@ class Counters {
 
     remove(){
       this._filledICUs[0] = this._filledICUs[0] - 1;
-      console.log(this._filledICUs[0]);
     }
 };
