@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Interactive Covid-19</title>
+  <meta name="description" content="Interactive Covid-19 Simulation" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="./webapp/style.css" />
+</head>
+
+<body>
+  <main class="grey-container">
+    <nav>
+    </nav>
+
+    <section id="intro">
+      <h1 class="intro__hed">Covid-19: An Interactive Story</h1>
+      <p class="intro__dek">
+        Social Distance. Lockdown. Flatten the Curve.<br>
+        You've heard it all, but what does it really mean?<br>
+        Why should you care?<br>
+        This DIY story explains what these things are and how they are supposed to help us combat the Coronavirus.
+      </p>
+    </section>
+
+    <section class="scroll-element explanation-scroll" id="animation-scroll-1">
+      <article>
+        <div class="step" data-step="1">
+          <div class="step-text" style="position: absolute">
+            This story uses simple simulations of a Coronavirus outbreak in the real world.<br>
+            You can interact with these simulations to try out the effects of different measures.<br>
+          </div>
+        </div>
+        <div class="step" data-step="2">
+          <div class="step-text" style="position: absolute">
+            A box with bouncing balls represents a community of people, such as a city.<br>
+            <br>
+            Initially some people are infected with Coronavirus.<br>
+            The virus can spread throughout the community when people come in to contact with each other.
+          </div>
+        </div>
+      </article>
+      <div class="explanation-wrapper" style="max-height: 50rem;">
+        <img src="./animations/simulation-screenshot-01.png" alt="Sample screenshot of a simulation.">
+      </div>
+    </section>
+    <div style="height: 20rem;"></div>
+
+    <section class="scroll-element explanation-scroll" id="animation-scroll-2">
+      <article>
+        <div class="step" data-step="1">
+          <div class="step-text" style="position: absolute">
+            You can see by the colour of a ball what state the person is in:<br>
+            <ul>
+              <li style="color:green">Healthy</li>
+              <li style="color:red">Sick</li>
+              <li style="color:purple">Recovered</li>
+              <li style="color:grey">Dead</li>
+            </ul>
+          </div>
+        </div>
+        <div class="step" data-step="2">
+          <div class="step-text" style="position: absolute">
+            Healthy people can get sick when they meet another sick person.<br>
+            <br>
+            If they are careful, they can reduce the risk of infection:
+            they could wear a mask, wash their hands after the meeting, or keep their distance.<br>
+            <br>
+            The risk of getting infected always increases when the meeting lasts longer.
+          </div>
+        </div>
+        <div class="step" data-step="3">
+          <div class="step-text" style="position: absolute">
+            After a certain amount of time, sick people hopefully recover.<br>
+            <br>
+            But unfortunately not everyone does: some sick people die.<br>
+            <br>
+            We have to act to avoid this as much as possible.
+          </div>
+        </div>
+      </article>
+      <div class="explanation-wrapper">
+        <img src="./animations/basic-explanation.gif" alt="Explanation of infection radius.">
+      </div>
+    </section>
+    <div style="height: 40rem;"></div>
+
+    <section class="scroll-element" id="simulation-scroll-1">
+      <article>
+        <div class="step" data-step="1">
+          <div class="step-text" style="position: absolute">
+            This simulation shows the effects of following hygiene recommendations.<br>
+            <br>
+            Better hygiene can limit the spread of the virus. Better hygiene includes:
+            <ul>
+              <li>Washing hands regularly</li>
+              <li>Sneezing and coughing into the elbow</li>
+              <li>No touching of the face</li>
+              <li>Wearing fase masks</li>
+            </ul>
+            <br>
+            Try out different levels of hygiene to see what changes.
+          </div>
+        </div>
+        <div class="step" data-step="2">
+          <div class="step-text" style="position: absolute">
+            You may have noticed that better hygiene levels "flatten the curve" - this means that the number of infections increases more slowly.
+          </div>
+        </div>
+        <div class="step" data-step="3">
+          <div class="step-text" style="position: absolute">
+            Good hygiene alone will not prevent the majority of a population from becoming infected though.
+            A population that relies only on good hygiene may overload their health service.
+          </div>
+        </div>
+      </article>
+      <figure>
+        <div class="sim-wrapper">
+          <iframe class="sim" id="scenario1" allowtransparency="true" src="./simulation/index.html?key=scenario1"></iframe>
+        </div>
+      </figure>
+    </section>
+    <div class="spacer"></div>
+
+    <section class="scroll-element" id="simulation-scroll-2">
+      <article>
+        <div class="step" data-step="4">
+          <div class="step-text" style="position: absolute">
+            As more patients are hospitalised, the health service is put under greater strain.
+            <br><br>
+            Eventually the health service may run out of supplies, such as ventilators or face masks.
+            <br><br>
+            They may even run out of space in intensive care units (ICUs).
+          </div>
+        </div>
+        <div class="step" data-step="5">
+          <div class="step-text" style="position: absolute">
+            This will lead to an increased chance of death for those hospitalised with Coronavirus, as well as those without Coronavirus who may not receive life-saving care.
+          </div>
+        </div>
+        <div class="step" data-step="5">
+          <div class="step-text" style="position: absolute">
+            In countries with less developed health services, the health service will be overloaded sooner.
+            <br><br>
+            Try running the simulations with different amounts of ICUs to see how easily a health service can be stretched beyond capacity.
+          </div>
+        </div>
+      </article>
+      <figure>
+        <div class="sim-wrapper">
+          <iframe class="sim" id="scenario2" src="./simulation/index.html?key=scenario2"></iframe>
+        </div>
+      </figure>
+    </section>
+    <div class="spacer"></div>
+
+    <section class="scroll-element" id="simulation-scroll-3">
+      <article>
+        <div class="step" data-step="7">
+          <div class="step-text" style="position: absolute">
+            One of the most effective ways to flatten the curve is by self-quarantining - leaving the house only when necessary.
+            <br><br>
+            <!--It can even root out the virus before the whole population gets infected.-->
+          </div>
+        </div>
+        <div class="step" data-step="8">
+          <div class="step-text" style="position: absolute">
+            Leaving the house only when necessary limits your risk of becoming infected and the virus spreading to the whole population.
+          </div>
+        </div>
+        <div class="step" data-step="8">
+          <div class="step-text" style="position: absolute">
+            Quarantining large parts of the population can help to root out the virus, but can also make it difficult for society to function. 
+            <!--
+            Quarantining can be combined with high levels of testing to ensure that the virus spreads slowly while...-->
+          </div>
+        </div>
+      </article>
+      <figure>
+        <div class="sim-wrapper">
+          <iframe class="sim" id="scenario3" src="./simulation/index.html?key=scenario3"></iframe>
+        </div>
+      </figure>
+    </section>
+    <div class="spacer"></div>
+
+    <section class="scroll-element" id="simulation-scroll-4">
+      <article>
+        <div class="step" data-step="10">
+          <div class="step-text" style="position: absolute">
+            High levels of testing can identify individuals with Coronavirus earlier and advise them to quarantine before they spread the virus to others.
+          </div>
+        </div>
+      </article>
+      <figure>
+        <div class="sim-wrapper">
+          <iframe class="sim" id="scenario4" src="./simulation/index.html?key=scenario4"></iframe>
+        </div>
+      </figure>
+    </section>
+    <div class="spacer"></div>
+
+    <section class="scroll-element" id="simulation-scroll-dash">
+      <article>
+        <div class="step" data-step="14">
+          <div class="step-text" style="position: absolute">
+            In this final simulation you can try out any combination of measures.
+            We encourage you to develop your understanding by playing around with the simulation.
+          </div>
+        </div>
+      </article>
+      <figure>
+        <div class="sim-wrapper">
+          <iframe class="sim" id="scenarioDash" src="./simulation/index.html?key=scenarioDash"></iframe>
+        </div>
+      </figure>
+    </section>
+    <section id="outro">
+      <div class="intro__dek" style="width: 60%; text-align: center; margin: auto;">
+          Disclaimer: The information presented here is not the work of professional epidemiologists or official health authorities.
+          Do not take this information as medical advice.
+      </div>
+    </section>
+  </main>
+
+  <!-- <div class='debug'></div> -->
+  <script src="https://unpkg.com/d3@5.9.1/dist/d3.min.js"></script>
+  <script src="https://unpkg.com/intersection-observer@0.5.1/intersection-observer.js"></script>
+  <script src="./webapp/stickyfill.min.js"></script>
+  <script src="./webapp/scrollama.min.js"></script>
+  <script src="./webapp/main.js"></script>
+  <script src="./global.js"></script>
+</body>
+
+</html>
