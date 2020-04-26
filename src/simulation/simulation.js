@@ -30,6 +30,7 @@ $canvas.addEventListener("click", () => { pauseSimulation(); });
 function pauseSimulation(){
     if(simulation && simulation.simStatus === SIMSTATUS.running){
         simulation.pause();
+        configureSimControlsVisibility(false);
         $overlay.classList.add("active");
     }    
 }
@@ -60,6 +61,7 @@ $run.addEventListener("click", () => {
         if (simulation.graph.done){
             $overlay.classList.add("active");
             simulation.simStatus = SIMSTATUS.finished;
+            configureSimControlsVisibility(true);
         } else if (simulation.simStatus === SIMSTATUS.paused) {
             return;
         } else if (simulation.simStatus === SIMSTATUS.running) {
@@ -122,3 +124,33 @@ class Simulation {
         this.simStatus = SIMSTATUS.paused;
     }
 }
+
+// Configuration of the simulation user controls visibility by scenario
+
+const allSimControls = ["quarantine", "hygiene"];
+
+const scenarioSimControls = {
+    "scenario1": ["quarantine"],
+    "scenario2": ["hygiene"],
+};
+
+function configureSimControlsVisibility(show){
+    var scenarioId = getScenarioId();
+    const value = show ? "visible" : "hidden";
+    scenarioSimControls[scenarioId].forEach( ctrl => {
+        document.getElementById(ctrl).parentElement.style.visibility = value;
+    })
+}
+
+function configureSimControlsDisplay(){
+    var scenarioId = getScenarioId();
+    allSimControls.forEach( ctrl => {
+        if(!scenarioSimControls[scenarioId].includes(ctrl)){
+            // hide the parentElement, which is the 'select',
+            // to ensure everything including the arrow disappears
+            document.getElementById(ctrl).parentElement.style.display = "none";
+        }
+    })
+}
+
+configureSimControlsDisplay();
