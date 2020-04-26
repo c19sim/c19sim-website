@@ -1,6 +1,7 @@
 const $overlay = document.getElementById("overlay");
 const $quarantine = document.getElementById("quarantine");
 const $hygiene = document.getElementById("hygiene");
+const $icu = document.getElementById("icu");
 const $run = document.getElementById("run");
 const $canvas = document.getElementById("population");
 
@@ -76,13 +77,14 @@ class Scenario {
     constructor() {
         this.population = {
             size: 1000,
-            patientZeroes: 3
+            patientZeroes: 10
         };
         this.behaviour = {
             quarantineRate: 0.5,
             socialDistanceRate: 0.75,
             socialDistanceDiscipline: 0.6,
-            hygieneLevel: 0
+            hygieneLevel: 0,
+            icuPercentage: 0
         };
         this.virus = {
             incubationTime: 4,
@@ -97,6 +99,7 @@ class Scenario {
                 this.behaviour.socialDistanceRate = parseFloat($quarantine.value);
                 this.behaviour.quarantineRate = parseFloat($quarantine.value);
                 this.behaviour.hygieneLevel = parseFloat($hygiene.value);
+                this.behaviour.icuPercentage = parseFloat($icu.value);
                 break;
             default:
         }
@@ -113,7 +116,8 @@ class Simulation {
             this.scenario.population.size, 
             this.scenario.behaviour.quarantineRate, 
             this.scenario.population.patientZeroes, 
-            this.scenario.behaviour.hygieneLevel);
+            this.scenario.behaviour.hygieneLevel, 
+            this.scenario.behaviour.icuPercentage);
 
         this.graph = new Graph(this.population);
 
