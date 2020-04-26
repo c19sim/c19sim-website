@@ -1,5 +1,5 @@
 class Person {
-    constructor(id, radius, width, height, sick, quarantined, vulnerable, contaminationFactor, hygienePenalty, icuQuantity, filledICUs, headerContext, tests) {
+    constructor(id, radius, width, height, sick, quarantined, vulnerable, contaminationFactor, hygienePenalty, icuQuantity, filledICUs, headerContext, tests, quarantineEffectiveness) {
         this.id = id;
         this.width = width;
         this.height = height;
@@ -11,6 +11,8 @@ class Person {
         this.criticalFrame = 0;
         this.status = sick ? STATUSES.sick : STATUSES.healthy;
         this.hygienePenalty = hygienePenalty;
+        this.quarantineRadius = this.contaminationRadius*1.1;
+        this.quarantineEffectiveness = quarantineEffectiveness;
         this.swerveProb = 0.1;
         this.initialiseMotion();
         this.icuQuantity = icuQuantity;
@@ -32,18 +34,24 @@ class Person {
         };
     }
 
+    rotateVelocity(angleRadians) {
+        let cos = Math.cos(angleRadians);
+        let sin = Math.sin(angleRadians);
+        let newVelocityX = (this.velocity.x * cos) - (this.velocity.y * sin);
+        let newVelocityY = (this.velocity.x * sin) + (this.velocity.y * cos);
+        this.velocity.x = newVelocityX;
+        this.velocity.y = newVelocityY;
+    }
+
     /**
      * Swerves particles randomly through a number of degrees.
      */
     swerveParticle() {
-        let angleRad = (2*Math.random() - 1)*RADIANS(15);
-        let swerve = Math.random() < this.swerveProb;
-        let cos = Math.cos(angleRad);
-        let sin = Math.sin(angleRad);
-        let newVelocityX = swerve ? (this.velocity.x * cos) - (this.velocity.y * sin) : this.velocity.x;
-        let newVelocityY = swerve ? (this.velocity.x * sin) + (this.velocity.y * cos) : this.velocity.y;
-        this.velocity.x = newVelocityX;
-        this.velocity.y = newVelocityY;
+        if(Math.random() < this.swerveProb)
+        {
+          let angleRad = (2*Math.random() - 1)*RADIANS(15);
+          this.rotateVelocity(angleRad );
+        }
     }
 
     tick() {
@@ -126,28 +134,54 @@ class Person {
         this.velocity.y -= d * velocity.y;
     }
 
-    handleContact(person){
+    getRandomInRange(min, max) {
+        return Math.random() * (max - min) + min;
+    }
+
+    collideMovingParticleWithQuarantinedPerson(quarantinedPerson, timestep) {
+        let angle = this.getRandomInRange(180, 180);
+        this.rotateVelocity(RADIANS(angle));
+    }
+
+    handleContact(person, timestep){
         if(person.id === this.id){
             return;
         }
 
         const d = this.distanceBetween(person);
-        if(d < this.contaminationRadius){
-            // handle any infectious consequences
+
+        // If the person comes into contact with a person in quarantine, then there is a much reduced
+        // chance that they will infect them.
+        if (this.quarantined || person.quarantined) {
+            if (d < this.quarantineRadius) {
+                if (this.quarantined) {
+                    person.collideMovingParticleWithQuarantinedPerson(this, timestep);
+                } else {
+                    this.collideMovingParticleWithQuarantinedPerson(person, timestep);
+                }
+                
+                this.attemptsToInfect(person, d, true);
+                person.attemptsToInfect(this, d, true);
+
+            }
+        } else if (d < this.contaminationRadius){
+            // Otherwise, the person is coming into contact with a person that is not
+            // in quarantine.
             this.attemptsToInfect(person, d);
             person.attemptsToInfect(this, d);
         }
-
+        
         // handle any other consequences
         //   e.g. exchange tracing info
     }
 
-    attemptsToInfect(person, distance) {
+    attemptsToInfect(person, distance, quarantine=false) {
         if(this.status !== STATUSES.sick && this.status !== STATUSES.critical) { 
             return;
         }
 
-        const infectionProb = this.hygienePenalty * (1 - distance / this.contaminationRadius);
+        let infectionProb = this.hygienePenalty * (1 - distance / this.contaminationRadius);
+        infectionProb = quarantine ? (1-this.quarantineEffectiveness)*infectionProb : infectionProb;
         if(Math.random() < infectionProb) {
             person.getsInfected();
         }
