@@ -31,7 +31,6 @@ $canvas.addEventListener("click", () => { pauseSimulation(); });
 function pauseSimulation(){
     if(simulation && simulation.simStatus === SIMSTATUS.running){
         simulation.pause();
-        configureSimControlsVisibility(false);
         $overlay.classList.add("active");
     }    
 }
@@ -80,7 +79,7 @@ class Scenario {
             patientZeroes: 10
         };
         this.behaviour = {
-            quarantineRate: 0.5,
+            quarantineRate: 0,
             socialDistanceRate: 0.75,
             socialDistanceDiscipline: 0.6,
             hygieneLevel: 0,
@@ -95,17 +94,23 @@ class Scenario {
     }
 
     configure(id) {
-        this.behaviour.socialDistanceRate = parseFloat($quarantine.value);
-                this.behaviour.quarantineRate = parseFloat($quarantine.value);
-                this.behaviour.hygieneLevel = parseFloat($hygiene.value);
-                this.behaviour.icuPercentage = parseFloat($icu.value);
-                this.behaviour.testPercentage = parseFloat($tests.value);
         switch (id) {
             case 'scenario1':
-                this.behaviour.socialDistanceRate = parseFloat($quarantine.value);
+                this.behaviour.hygieneLevel = parseFloat($hygiene.value);
+                break;
+            case 'scenario2':
+                this.behaviour.icuPercentage = parseFloat($icu.value);
+                break;
+            case 'scenario3':
                 this.behaviour.quarantineRate = parseFloat($quarantine.value);
+                break;
+            case 'scenario4':
+                this.behaviour.testPercentage = parseFloat($tests.value);
+                break;
+            case 'scenarioDash':
                 this.behaviour.hygieneLevel = parseFloat($hygiene.value);
                 this.behaviour.icuPercentage = parseFloat($icu.value);
+                this.behaviour.quarantineRate = parseFloat($quarantine.value);
                 this.behaviour.testPercentage = parseFloat($tests.value);
                 break;
             default:
