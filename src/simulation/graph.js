@@ -1,5 +1,6 @@
 class Graph {
-    constructor(population) {
+    constructor(population, tests) {
+        this.tests = tests;
         this.population = population;
         this.canvas = document.getElementById("graph");
         this.context = this.canvas.getContext("2d");
@@ -24,7 +25,7 @@ class Graph {
     tick() {
         let recovered = this.population.people.filter((x) => { return x.status === STATUSES.recovered; }).length;
         let healthy = this.population.people.filter((x) => { return x.status === STATUSES.healthy; }).length;
-        let sick = this.population.people.filter((x) => { return x.status === STATUSES.sick; }).length;
+        let sick = this.population.people.filter((x) => { return x.status === STATUSES.sick || x.status === STATUSES.critical; }).length;
         let dead = this.population.people.filter((x) => { return x.status === STATUSES.dead; }).length;
 
         const total = dead + recovered + healthy + sick;
@@ -49,6 +50,9 @@ class Graph {
         this.drawTimestep(drawData);
 
         this.x++;
+
+        // Update Time
+        this.tests.setCurrentTime(this.x);
 
         if (this.x >= this.width) this.done = true;
     }

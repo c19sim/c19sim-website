@@ -1,6 +1,8 @@
 const $overlay = document.getElementById("overlay");
 const $quarantine = document.getElementById("quarantine");
 const $hygiene = document.getElementById("hygiene");
+const $icu = document.getElementById("icu");
+const $tests = document.getElementById("tests");
 const $run = document.getElementById("run");
 const $canvas = document.getElementById("population");
 
@@ -30,6 +32,7 @@ $canvas.addEventListener("click", () => { pauseSimulation(); });
 function pauseSimulation(){
     if(simulation && simulation.simStatus === SIMSTATUS.running){
         simulation.pause();
+        configureSimControlsVisibility(false);
         $overlay.classList.add("active");
     }    
 }
@@ -60,6 +63,7 @@ $run.addEventListener("click", () => {
         if (simulation.graph.done){
             $overlay.classList.add("active");
             simulation.simStatus = SIMSTATUS.finished;
+            configureSimControlsVisibility(true);
         } else if (simulation.simStatus === SIMSTATUS.paused) {
             return;
         } else if (simulation.simStatus === SIMSTATUS.running) {
@@ -74,13 +78,15 @@ class Scenario {
     constructor() {
         this.population = {
             size: 1000,
-            patientZeroes: 3
+            patientZeroes: 10
         };
         this.behaviour = {
             quarantineRate: 0.5,
             socialDistanceRate: 0.75,
             socialDistanceDiscipline: 0.6,
-            hygieneLevel: 0
+            hygieneLevel: 0,
+            icuPercentage: 0,
+            testPercentage: 0
         };
         this.virus = {
             incubationTime: 4,
@@ -95,6 +101,8 @@ class Scenario {
                 this.behaviour.socialDistanceRate = parseFloat($quarantine.value);
                 this.behaviour.quarantineRate = parseFloat($quarantine.value);
                 this.behaviour.hygieneLevel = parseFloat($hygiene.value);
+                this.behaviour.icuPercentage = parseFloat($icu.value);
+                this.behaviour.testPercentage = parseFloat($tests.value);
                 break;
             default:
         }
@@ -106,14 +114,20 @@ class Simulation {
         var scenarioId = getScenarioId();
         this.scenario = new Scenario();
         this.scenario.configure(scenarioId);
+        this.tests = new Tests(TEST_TIME);
+        Object.freeze(this.tests);
+
+        this.tests.buildIDs(this.scenario.behaviour.testPercentage, this.scenario.population.size);
 
         this.population = new Population(
             this.scenario.population.size, 
             this.scenario.behaviour.quarantineRate, 
             this.scenario.population.patientZeroes, 
-            this.scenario.behaviour.hygieneLevel);
+            this.scenario.behaviour.hygieneLevel, 
+            this.scenario.behaviour.icuPercentage,
+            this.tests);
 
-        this.graph = new Graph(this.population);
+        this.graph = new Graph(this.population, this.tests);
 
         this.simStatus = SIMSTATUS.initialised;
     }
@@ -122,3 +136,33 @@ class Simulation {
         this.simStatus = SIMSTATUS.paused;
     }
 }
+
+// Configuration of the simulation user controls visibility by scenario
+
+const allSimControls = ["quarantine", "hygiene"];
+
+const scenarioSimControls = {
+    "scenario1": ["quarantine"],
+    "scenario2": ["hygiene"],
+};
+
+function configureSimControlsVisibility(show){
+    var scenarioId = getScenarioId();
+    const value = show ? "visible" : "hidden";
+    scenarioSimControls[scenarioId].forEach( ctrl => {
+        document.getElementById(ctrl).parentElement.style.visibility = value;
+    })
+}
+
+function configureSimControlsDisplay(){
+    var scenarioId = getScenarioId();
+    allSimControls.forEach( ctrl => {
+        if(!scenarioSimControls[scenarioId].includes(ctrl)){
+            // hide the parentElement, which is the 'select',
+            // to ensure everything including the arrow disappears
+            document.getElementById(ctrl).parentElement.style.display = "none";
+        }
+    })
+}
+
+configureSimControlsDisplay();

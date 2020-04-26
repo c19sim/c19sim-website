@@ -14,7 +14,8 @@
 <body>
   <!-- partial:index.partial.html -->
   <section>
-    <canvas id="population" width="1200" height="600"></canvas>
+    <canvas id="header" width="1200" height="50"></canvas>
+    <canvas id="population" width="1200" height="550"></canvas>
     <div class="info">
       <canvas id="graph" height="200" width="1500"></canvas>
       <ul>
@@ -46,6 +47,23 @@
             <option value="1">Maximum Hygiene</option>
           </select>
         </span>
+        <span class="select">
+          <select id="icu">
+            <option value="0" selected>No ICUs</option>
+            <option value="0.02" >Low quantity</option>
+            <option value="0.075">High quantity</option>
+            <option value="1" >Unlimited quantity</option>
+          </select>
+        </span>
+        <span class="select">
+          <select id="tests">
+            <option value="0" selected>No testing</option>
+            <option value="0.1" >Test 10% of population</option>
+            <option value="0.3">Test 30% of population</option>
+            <option value="0.5">Test 50% of population</option>
+            <option value="0.99" >Test everyone</option>
+          </select>
+        </span>
         &nbsp;
         <button class="button is-primary" id="run">Run</button>
       </div>
@@ -58,6 +76,8 @@
   <script src="./person.js"></script>
   <script src="./population.js"></script>
   <script src="./simulation.js"></script>
+  <script src="./intensive_care.js"></script>
+  <script src="./tests.js"></script>
 
 </body>
 

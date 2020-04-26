@@ -1,6 +1,13 @@
 class Population {
-    constructor(size, quarantineRate, patientZeroes, hygieneLevel, contaminationFactor = 2) {
+    constructor(size, quarantineRate, patientZeroes, hygieneLevel, icuPercentage, tests, contaminationFactor = 2) {
+        this.filledICUs = new IntensiveCare();
+        Object.freeze(this.filledICUs);
         this.people = new Array(size);
+        this.header = document.getElementById("header");
+        this.headerContext = this.header.getContext("2d");
+        this.headerContext.font = "36px Roboto, sans-serif";
+        this.headerContext.fillStyle = "red"; // set stroke color to red
+        this.headerContext.lineWidth = "3.5";  //  set stroke width to 1.5
         this.canvas = document.getElementById("population");
         this.context = this.canvas.getContext("2d");
         this.width = this.canvas.width;
@@ -10,10 +17,12 @@ class Population {
         this.quarantineRadius = this.radius;
         this.timestep = 0;
         this.contaminationFactor = contaminationFactor;
+        this.icuQuantity = Math.floor(icuPercentage * size);
+        this.tests = tests;
         for (let i = 0; i < size; i++) {
             const sick = i > size - patientZeroes - 1;
             const quarantined = i / size <= quarantineRate;
-            const vulnerable = Math.random() < 0.01;
+            const vulnerable = Math.random() < 0.1;
             this.people[i] = new Person(
                 i,
                 this.radius,
@@ -23,7 +32,11 @@ class Population {
                 quarantined,
                 vulnerable,
                 this.contaminationFactor,
-                this.hygienePenalty);
+                this.hygienePenalty,
+                this.icuQuantity,
+                this.filledICUs,
+                this.headerContext,
+                this.tests);
         }
     }
 
@@ -37,7 +50,6 @@ class Population {
             this.draw(p);
             p.tick(this.people);
         });
-
         for (let i = 0; i < this.people.length; i++) {
             for (let n = i + 1; n < this.people.length; n++) {
                 if(this.people[i] !== null && this.people[n] !== null){
