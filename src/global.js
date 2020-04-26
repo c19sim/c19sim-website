@@ -3,7 +3,7 @@ const PI2 = PI * 2;
 
 const SPEED = 2;
 const SICK_TIMEFRAME = 275;
-const CRITICAL_TIMEFRAME = 5;
+const CRITICAL_TIMEFRAME = 200;
 const CRITICAL_FATALITY_RATE = 0.1;
 
 const COLOR = {
