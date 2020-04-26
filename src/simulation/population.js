@@ -3,6 +3,12 @@ class Population {
         this.counters = new Counters();
         Object.freeze(this.counters);
         this.people = new Array(size);
+        this.header = document.getElementById("header");
+        this.headerContext = this.header.getContext("2d");
+        this.headerContext.font = "36px Roboto, sans-serif";
+        this.headerContext.fillStyle = "red"; // set stroke color to red
+        
+        this.headerContext.lineWidth = "3.5";  //  set stroke width to 1.5
         this.canvas = document.getElementById("population");
         this.context = this.canvas.getContext("2d");
         this.width = this.canvas.width;
@@ -26,7 +32,8 @@ class Population {
                 contaminationFactor,
                 this.hygienePenalty,
                 this.icuQuantity,
-                this.counters);
+                this.counters,
+                this.headerContext);
         }
     }
 

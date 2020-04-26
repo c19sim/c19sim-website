@@ -1,5 +1,5 @@
 class Person {
-    constructor(id, radius, width, height, sick, quarantined, vulnerable, contaminationFactor, hygienePenalty, icuQuantity, filledICUs) {
+    constructor(id, radius, width, height, sick, quarantined, vulnerable, contaminationFactor, hygienePenalty, icuQuantity, filledICUs, headerContext) {
         this.id = id;
         this.width = width;
         this.height = height;
@@ -14,7 +14,8 @@ class Person {
         this.swerveProb = 0.1;
         this.initialiseMotion();
         this.icuQuantity = icuQuantity;
-        this.filledICUs = filledICUs;
+        this.filledICUs = filledICUs;;
+        this.headerContext = headerContext;
     }
 
     initialiseMotion() {
@@ -64,6 +65,7 @@ class Person {
                 if (this.filledICUs.get() >= this.icuQuantity) {
                     this.status = STATUSES.dead;
                     console.log(this.filledICUs.get())
+                    if(this.icuQuantity > 0) this.headerContext.fillText("Maximum ICU capacity has been reached", 270, 40, 1200);
                 } else {
                     this.status = STATUSES.critical;
                     this.filledICUs.add();
@@ -76,6 +78,7 @@ class Person {
         if (this.criticalFrame >= CRITICAL_TIMEFRAME && this.status !== STATUSES.recovered && this.status !== STATUSES.dead) {
             this.status = (Math.random() <= CRITICAL_FATALITY_RATE) ? STATUSES.dead : STATUSES.recovered;
             this.filledICUs.remove();
+            this.headerContext.clearRect(0, 0, 1200,50);
         }
     }
 
