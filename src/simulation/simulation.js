@@ -117,7 +117,7 @@ class Simulation {
             this.scenario.behaviour.quarantineRate, 
             this.scenario.population.patientZeroes, 
             this.scenario.behaviour.hygieneLevel, 
-            scenario.behaviour.icuPercentage);
+            this.scenario.behaviour.icuPercentage);
 
         this.graph = new Graph(this.population);
 
