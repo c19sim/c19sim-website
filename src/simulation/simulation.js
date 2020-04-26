@@ -131,11 +131,12 @@ class Simulation {
 
 // Configuration of the simulation user controls visibility by scenario
 
-const allSimControls = ["quarantine", "hygiene"];
+const allSimControls = ["quarantine", "hygiene", "icu"];
 
 const scenarioSimControls = {
-    "scenario1": ["quarantine"],
-    "scenario2": ["hygiene"],
+    "scenario1"   : ["hygiene"],
+    "scenario2"   : ["quarantine"],
+    "scenarioDash": ["quarantine", "hygiene", "icu"],
 };
 
 function configureSimControlsVisibility(show){

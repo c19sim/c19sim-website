@@ -19,6 +19,7 @@ var scrollElements = {
   'explanation2': new ScrollElements('animation-scroll-2'),
   'scenario1': new ScrollElements('simulation-scroll-1'),
   'scenario2': new ScrollElements('simulation-scroll-2'),
+  'scenarioDash': new ScrollElements('simulation-scroll-dash'),
 }
 
 // initialize the scrollama
@@ -27,6 +28,7 @@ var scrollers = {
   'explanation2': scrollama(),
   'scenario1': scrollama(),
   'scenario2': scrollama(),
+  'scenarioDash': scrollama(),
 };
 
 // generic window resize listener event
@@ -150,7 +152,17 @@ function init() {
     .onStepEnter(response => handleStepEnter(response, 'scenario2'))
     .onStepProgress(response => handleStepProgress(response, 'scenario2'));
 
-  // setup resize event
+  scrollers['scenarioDash']
+    .setup({
+      step: "#simulation-scroll-dash article .step",
+      offset: 0.33,
+      debug: true,
+      progress: true
+    })
+    .onStepEnter(response => handleStepEnter(response, 'scenarioDash'))
+    .onStepProgress(response => handleStepProgress(response, 'scenarioDash'));
+
+    // setup resize event
   window.addEventListener("resize", handleResize);
 }
 
