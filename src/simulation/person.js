@@ -21,7 +21,6 @@ class Person {
         this.position = new Vector(
             Math.random() * (this.width - this.radius * 2) + this.radius,
             Math.random() * (this.height - this.radius * 2) + this.radius);
-        this.initialPosition = {...this.position};
         this.velocity = {
             x: Math.cos(RADIANS(this.angle)) * SPEED,
             y: -Math.sin(RADIANS(this.angle)) * SPEED
@@ -49,7 +48,6 @@ class Person {
         let newVelocityY = swerve ? (this.velocity.x * sin) + (this.velocity.y * cos) : this.velocity.y;
         this.velocity.x = newVelocityX;
         this.velocity.y = newVelocityY;
-        
     }
 
     tick(population) {
