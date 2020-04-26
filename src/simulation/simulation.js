@@ -31,6 +31,7 @@ $canvas.addEventListener("click", () => { pauseSimulation(); });
 function pauseSimulation(){
     if(simulation && simulation.simStatus === SIMSTATUS.running){
         simulation.pause();
+        configureSimControlsVisibility(false);
         $overlay.classList.add("active");
     }    
 }
@@ -161,7 +162,7 @@ const scenarioSimControls = {
 function configureSimControlsVisibility(show){
     var scenarioId = getScenarioId();
     const value = show ? "visible" : "hidden";
-    scenarioSimControls[scenarioId].forEach( ctrl => {
+    scenarioSimControls[scenarioId].forEach(ctrl => {
         document.getElementById(ctrl).parentElement.style.visibility = value;
     })
 }
