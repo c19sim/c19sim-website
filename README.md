@@ -1,7 +1,7 @@
 # c19sim-website
 Covid-19 Interactive Simulation Website.
 
-https://c19sim.github.io
+https://c19sim.github.io/c19sim-website/
 
 # Disclaimer:
 The information presented here is not the work of professional epidemiologists or official health authorities. Do not take this information as medical advice.
