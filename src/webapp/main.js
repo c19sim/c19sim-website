@@ -76,7 +76,7 @@ function handleStepProgress(response, scrollyId) {
     // Calculate the amount of margin to add, as well as a maximum margin,
     // which is required so that the text doesn't flow off the end of the step.
     var topMargin = fp - sp;
-    var maxMargin = stepH - currentStepTextHeight - 60;
+    var maxMargin = stepH - currentStepTextHeight;
     topMargin = Math.max(topMargin, 0);
     topMargin = topMargin > maxMargin ? maxMargin : topMargin;
     currentStepText.style("margin-top", topMargin + "px");
@@ -88,6 +88,7 @@ function handleStepEnter(response, scrollyId) {
   Object.keys(scrollers).forEach(key => {
     if (key == scrollyId && scrollyId.startsWith('scenario')) {
       var iframe = document.getElementById(key);
+      iframe.contentDocument.body.style.background = "transparent";
       iframe && iframe.contentWindow.postMessage(MESSAGE_TYPE.pause_sim, '*');
     }
   });
@@ -120,7 +121,7 @@ function init() {
     .setup({
       step: "#animation-scroll-1 article .step",
       offset: 0.33,
-      debug: true,
+      debug: false,
       progress: true
     })
     .onStepEnter(response => handleStepEnter(response, 'explanation1'))
@@ -130,7 +131,7 @@ function init() {
     .setup({
       step: "#animation-scroll-2 article .step",
       offset: 0.33,
-      debug: true,
+      debug: false,
       progress: true
     })
     .onStepEnter(response => handleStepEnter(response, 'explanation2'))
@@ -140,7 +141,7 @@ function init() {
     .setup({
       step: "#simulation-scroll-1 article .step",
       offset: 0.33,
-      debug: true,
+      debug: false,
       progress: true
     })
     .onStepEnter(response => handleStepEnter(response, 'scenario1'))
@@ -150,7 +151,7 @@ function init() {
     .setup({
       step: "#simulation-scroll-2 article .step",
       offset: 0.33,
-      debug: true,
+      debug: false,
       progress: true
     })
     .onStepEnter(response => handleStepEnter(response, 'scenario2'))
@@ -160,7 +161,7 @@ function init() {
     .setup({
       step: "#simulation-scroll-3 article .step",
       offset: 0.33,
-      debug: true,
+      debug: false,
       progress: true
     })
     .onStepEnter(response => handleStepEnter(response, 'scenario3'))
@@ -170,7 +171,7 @@ function init() {
     .setup({
       step: "#simulation-scroll-4 article .step",
       offset: 0.33,
-      debug: true,
+      debug: false,
       progress: true
     })
     .onStepEnter(response => handleStepEnter(response, 'scenario4'))
@@ -180,7 +181,7 @@ function init() {
     .setup({
       step: "#simulation-scroll-dash article .step",
       offset: 0.33,
-      debug: true,
+      debug: false,
       progress: true
     })
     .onStepEnter(response => handleStepEnter(response, 'scenarioDash'))

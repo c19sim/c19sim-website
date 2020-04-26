@@ -1,7 +1,8 @@
 html,
 body {
-  background: #111;
+  background: none transparent !important;
 }
+
 canvas {
   background: black;
   display: block;
@@ -9,11 +10,19 @@ canvas {
   height: auto;
 }
 
+iframe {
+  border: none;
+  background: transparent;
+  background-color: #f3f3f3 !important;
+  overflow: hidden;
+}
+
 section {
   margin: 0vh auto;
   max-width: 1000px;
   width: 95%;
   position: relative;
+  background-color: #f3f3f3;
 }
 #overlay {
   position: absolute;
