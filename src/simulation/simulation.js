@@ -21,7 +21,6 @@ bindEvent(window, 'message', function (e) {
     switch(e.data) {
         case MESSAGE_TYPE.pause_sim:
             // TODO: pause all simulations
-            console.log('Pause all simulations');
             pauseSimulation();
     }
     results.innerHTML = e.data;
@@ -96,6 +95,11 @@ class Scenario {
     }
 
     configure(id) {
+        this.behaviour.socialDistanceRate = parseFloat($quarantine.value);
+                this.behaviour.quarantineRate = parseFloat($quarantine.value);
+                this.behaviour.hygieneLevel = parseFloat($hygiene.value);
+                this.behaviour.icuPercentage = parseFloat($icu.value);
+                this.behaviour.testPercentage = parseFloat($tests.value);
         switch (id) {
             case 'scenario1':
                 this.behaviour.socialDistanceRate = parseFloat($quarantine.value);
@@ -139,12 +143,14 @@ class Simulation {
 
 // Configuration of the simulation user controls visibility by scenario
 
-const allSimControls = ["quarantine", "hygiene", "icu"];
+const allSimControls = ["quarantine", "hygiene", "icu", "tests"];
 
 const scenarioSimControls = {
     "scenario1"   : ["hygiene"],
-    "scenario2"   : ["quarantine"],
-    "scenarioDash": ["quarantine", "hygiene", "icu"],
+    "scenario2"   : ["icu"],
+    "scenario3"   : ["quarantine"],
+    "scenario4"   : ["tests"],
+    "scenarioDash": allSimControls,
 };
 
 function configureSimControlsVisibility(show){

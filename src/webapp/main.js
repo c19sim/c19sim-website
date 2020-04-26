@@ -19,6 +19,8 @@ var scrollElements = {
   'explanation2': new ScrollElements('animation-scroll-2'),
   'scenario1': new ScrollElements('simulation-scroll-1'),
   'scenario2': new ScrollElements('simulation-scroll-2'),
+  'scenario3': new ScrollElements('simulation-scroll-3'),
+  'scenario4': new ScrollElements('simulation-scroll-4'),
   'scenarioDash': new ScrollElements('simulation-scroll-dash'),
 }
 
@@ -28,6 +30,8 @@ var scrollers = {
   'explanation2': scrollama(),
   'scenario1': scrollama(),
   'scenario2': scrollama(),
+  'scenario3': scrollama(),
+  'scenario4': scrollama(),
   'scenarioDash': scrollama(),
 };
 
@@ -36,7 +40,7 @@ function handleResize() {
   // TODO: we may not need to resize every one here, in fact it's probably bad for performance - maybe we can figure out which one is active and resize that?
   Object.keys(scrollers).forEach(key => {
     // 1. update height of step elements
-    var stepH = Math.floor(window.innerHeight * 0.75);
+    var stepH = Math.floor(window.innerHeight * 1);
     scrollElements[key].step.style("height", stepH + "px");
     
     var figYScale = key.startsWith("scenario") ? 1.4 : 2.5;
@@ -82,7 +86,7 @@ function handleStepProgress(response, scrollyId) {
 function handleStepEnter(response, scrollyId) {
   // Send messages to cancel every simulation other than the current one.
   Object.keys(scrollers).forEach(key => {
-    if (key != scrollyId && scrollyId.startsWith('scenario')) {
+    if (key == scrollyId && scrollyId.startsWith('scenario')) {
       var iframe = document.getElementById(key);
       iframe && iframe.contentWindow.postMessage(MESSAGE_TYPE.pause_sim, '*');
     }
@@ -151,6 +155,26 @@ function init() {
     })
     .onStepEnter(response => handleStepEnter(response, 'scenario2'))
     .onStepProgress(response => handleStepProgress(response, 'scenario2'));
+
+  scrollers['scenario3']
+    .setup({
+      step: "#simulation-scroll-3 article .step",
+      offset: 0.33,
+      debug: true,
+      progress: true
+    })
+    .onStepEnter(response => handleStepEnter(response, 'scenario3'))
+    .onStepProgress(response => handleStepProgress(response, 'scenario3'));
+
+  scrollers['scenario4']
+    .setup({
+      step: "#simulation-scroll-4 article .step",
+      offset: 0.33,
+      debug: true,
+      progress: true
+    })
+    .onStepEnter(response => handleStepEnter(response, 'scenario4'))
+    .onStepProgress(response => handleStepProgress(response, 'scenario4'));
 
   scrollers['scenarioDash']
     .setup({
