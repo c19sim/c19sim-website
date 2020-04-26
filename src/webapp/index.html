@@ -11,7 +11,7 @@
 </head>
 
 <body>
-  <main>
+  <main class="grey-container">
     <nav>
     </nav>
 
@@ -37,8 +37,8 @@
           <div class="step-text" style="position: absolute">
             A box with bouncing balls represents a community of people, such as a city.<br>
             <br>
-            At the start some people are infected with Coronavirus.<br>
-            The virus can spread throughout the community when people come in contact with eachother.
+            Initially some people are infected with Coronavirus.<br>
+            The virus can spread throughout the community when people come in to contact with each other.
           </div>
         </div>
       </article>
@@ -46,6 +46,7 @@
         <img src="../animations/simulation-screenshot-01.png" alt="Sample screenshot of a simulation.">
       </div>
     </section>
+    <div style="height: 20rem;"></div>
 
     <section class="scroll-element explanation-scroll" id="animation-scroll-2">
       <article>
@@ -65,7 +66,7 @@
             Healthy people can get sick when they meet another sick person.<br>
             <br>
             If they are careful, they can reduce the risk of infection:
-            they could be wearing a mask, wash their hands after the meeting, or keep their distance.<br>
+            they could wear a mask, wash their hands after the meeting, or keep their distance.<br>
             <br>
             The risk of getting infected always increases when the meeting lasts longer.
           </div>
@@ -74,7 +75,7 @@
           <div class="step-text" style="position: absolute">
             After a certain amount of time, sick people hopefully recover.<br>
             <br>
-            But unfortunately not everyone does: Some sick people die.<br>
+            But unfortunately not everyone does: some sick people die.<br>
             <br>
             We have to act to avoid this as much as possible.
           </div>
@@ -84,19 +85,18 @@
         <img src="../animations/basic-explanation.gif" alt="Explanation of infection radius.">
       </div>
     </section>
+    <div style="height: 40rem;"></div>
 
     <section class="scroll-element" id="simulation-scroll-1">
       <article>
         <div class="step" data-step="1">
           <div class="step-text" style="position: absolute">
-            Click "Run" to start the first simulation.<br>
+            This simulation shows the effects of following hygiene recommendations.<br>
             <br>
-            This shows the effects of following hygiene recommendations.<br>
-            <br>
-            Better hygiene is one of the things we can do to limit the spread of the virus:
+            Better hygiene can limit the spread of the virus. Better hygiene includes:
             <ul>
               <li>Washing hands regularly</li>
-              <li>Sneezing and coughing in the elbow</li>
+              <li>Sneezing and coughing into the elbow</li>
               <li>No touching of the face</li>
               <li>Wearing fase masks</li>
             </ul>
@@ -105,36 +105,47 @@
           </div>
         </div>
         <div class="step" data-step="2">
-          <div class="step-text" style="position: absolute">Explain results...</div>
+          <div class="step-text" style="position: absolute">
+            You may have noticed that better hygiene levels "flatten the curve" - this means that the number of infections increases more slowly.
+          </div>
+        </div>
+        <div class="step" data-step="3">
+          <div class="step-text" style="position: absolute">
+            Good hygiene alone will not prevent the majority of a population from becoming infected though.
+            A population that relies only on good hygiene may overload their health service.
           </div>
         </div>
       </article>
       <figure>
         <div class="sim-wrapper">
-          <iframe class="sim" id="scenario1" src="../simulation/index.html?key=scenario1"></iframe>
+          <iframe class="sim" id="scenario1" allowtransparency="true" src="../simulation/index.html?key=scenario1"></iframe>
         </div>
       </figure>
     </section>
+    <div class="spacer"></div>
 
     <section class="scroll-element" id="simulation-scroll-2">
       <article>
         <div class="step" data-step="4">
-          <div class="step-text" style="position: absolute">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Nunc sit amet mi at neque ornare pretium. Curabitur eget mattis nunc, ac mattis massa. Nam euismod ultrices
-            velit, eget facilisis urna sollicitudin nec. Nullam quis rhoncus odio. Duis ex mi, laoreet vel rutrum a,
-            fringilla nec metus. Integer congue non justo nec interdum.</div>
+          <div class="step-text" style="position: absolute">
+            As more patients are hospitalised, the health service is put under greater strain.
+            <br><br>
+            Eventually the health service may run out of supplies, such as ventilators or face masks.
+            <br><br>
+            They may even run out of space in intensive care units (ICUs).
+          </div>
         </div>
         <div class="step" data-step="5">
-          <div class="step-text" style="position: absolute">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Nunc sit amet mi at neque ornare pretium. Curabitur eget mattis nunc, ac mattis massa. Nam euismod ultrices
-            velit, eget facilisis urna sollicitudin nec. Nullam quis rhoncus odio. Duis ex mi, laoreet vel rutrum a,
-            fringilla nec metus. Integer congue non justo nec interdum.</div>
+          <div class="step-text" style="position: absolute">
+            This will lead to an increased chance of death for those hospitalised with Coronavirus, as well as those without Coronavirus who may not receive life-saving care.
+          </div>
         </div>
-        <div class="step" data-step="6">
-          <div class="step-text" style="position: absolute">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Nunc sit amet mi at neque ornare pretium. Curabitur eget mattis nunc, ac mattis massa. Nam euismod ultrices
-            velit, eget facilisis urna sollicitudin nec. Nullam quis rhoncus odio. Duis ex mi, laoreet vel rutrum a,
-            fringilla nec metus. Integer congue non justo nec interdum.</div>
+        <div class="step" data-step="5">
+          <div class="step-text" style="position: absolute">
+            In countries with less developed health services, the health service will be overloaded sooner.
+            <br><br>
+            Try running the simulations with different amounts of ICUs to see how easily a health service can be stretched beyond capacity.
+          </div>
         </div>
       </article>
       <figure>
@@ -143,26 +154,28 @@
         </div>
       </figure>
     </section>
+    <div class="spacer"></div>
 
     <section class="scroll-element" id="simulation-scroll-3">
       <article>
         <div class="step" data-step="7">
-          <div class="step-text" style="position: absolute">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Nunc sit amet mi at neque ornare pretium. Curabitur eget mattis nunc, ac mattis massa. Nam euismod ultrices
-            velit, eget facilisis urna sollicitudin nec. Nullam quis rhoncus odio. Duis ex mi, laoreet vel rutrum a,
-            fringilla nec metus. Integer congue non justo nec interdum.</div>
+          <div class="step-text" style="position: absolute">
+            One of the most effective ways to flatten the curve is by self-quarantining - leaving the house only when necessary.
+            <br><br>
+            <!--It can even root out the virus before the whole population gets infected.-->
+          </div>
         </div>
         <div class="step" data-step="8">
-          <div class="step-text" style="position: absolute">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Nunc sit amet mi at neque ornare pretium. Curabitur eget mattis nunc, ac mattis massa. Nam euismod ultrices
-            velit, eget facilisis urna sollicitudin nec. Nullam quis rhoncus odio. Duis ex mi, laoreet vel rutrum a,
-            fringilla nec metus. Integer congue non justo nec interdum.</div>
+          <div class="step-text" style="position: absolute">
+            Leaving the house only when necessary limits your risk of becoming infected and the virus spreading to the whole population.
+          </div>
         </div>
-        <div class="step" data-step="9">
-          <div class="step-text" style="position: absolute">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Nunc sit amet mi at neque ornare pretium. Curabitur eget mattis nunc, ac mattis massa. Nam euismod ultrices
-            velit, eget facilisis urna sollicitudin nec. Nullam quis rhoncus odio. Duis ex mi, laoreet vel rutrum a,
-            fringilla nec metus. Integer congue non justo nec interdum.</div>
+        <div class="step" data-step="8">
+          <div class="step-text" style="position: absolute">
+            Quarantining large parts of the population can help to root out the virus, but can also make it difficult for society to function. 
+            <!--
+            Quarantining can be combined with high levels of testing to ensure that the virus spreads slowly while...-->
+          </div>
         </div>
       </article>
       <figure>
@@ -171,26 +184,14 @@
         </div>
       </figure>
     </section>
+    <div class="spacer"></div>
 
     <section class="scroll-element" id="simulation-scroll-4">
       <article>
         <div class="step" data-step="10">
-          <div class="step-text" style="position: absolute">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Nunc sit amet mi at neque ornare pretium. Curabitur eget mattis nunc, ac mattis massa. Nam euismod ultrices
-            velit, eget facilisis urna sollicitudin nec. Nullam quis rhoncus odio. Duis ex mi, laoreet vel rutrum a,
-            fringilla nec metus. Integer congue non justo nec interdum.</div>
-        </div>
-        <div class="step" data-step="11">
-          <div class="step-text" style="position: absolute">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Nunc sit amet mi at neque ornare pretium. Curabitur eget mattis nunc, ac mattis massa. Nam euismod ultrices
-            velit, eget facilisis urna sollicitudin nec. Nullam quis rhoncus odio. Duis ex mi, laoreet vel rutrum a,
-            fringilla nec metus. Integer congue non justo nec interdum.</div>
-        </div>
-        <div class="step" data-step="12">
-          <div class="step-text" style="position: absolute">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Nunc sit amet mi at neque ornare pretium. Curabitur eget mattis nunc, ac mattis massa. Nam euismod ultrices
-            velit, eget facilisis urna sollicitudin nec. Nullam quis rhoncus odio. Duis ex mi, laoreet vel rutrum a,
-            fringilla nec metus. Integer congue non justo nec interdum.</div>
+          <div class="step-text" style="position: absolute">
+            High levels of testing can identify individuals with Coronavirus earlier and advise them to quarantine before they spread the virus to others.
+          </div>
         </div>
       </article>
       <figure>
@@ -199,12 +200,14 @@
         </div>
       </figure>
     </section>
+    <div class="spacer"></div>
 
     <section class="scroll-element" id="simulation-scroll-dash">
       <article>
         <div class="step" data-step="14">
           <div class="step-text" style="position: absolute">
             In this final simulation you can try out any combination of measures.
+            We encourage you to develop your understanding by playing around with the simulation.
           </div>
         </div>
       </article>
@@ -214,9 +217,12 @@
         </div>
       </figure>
     </section>
-
-    <section id="outro"></section>
-
+    <section id="outro">
+      <div class="intro__dek" style="width: 60%; text-align: center; margin: auto;">
+          Disclaimer: The information presented here is not the work of professional epidemiologists or official health authorities.
+          Do not take this information as medical advice.
+      </div>
+    </section>
   </main>
 
   <!-- <div class='debug'></div> -->
