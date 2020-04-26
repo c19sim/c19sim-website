@@ -73,7 +73,7 @@ $run.addEventListener("click", () => {
 class Scenario {
     constructor() {
         this.population = {
-            size: 1000,
+            size: 500,
             patientZeroes: 3
         };
         this.behaviour = {

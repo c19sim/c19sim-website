@@ -10,6 +10,8 @@ class Person {
         this.sickFrame = 0;
         this.status = sick ? STATUSES.sick : STATUSES.healthy;
         this.hygienePenalty = hygienePenalty;
+        this.quarantineRadius = this.contaminationRadius*1.1;
+        this.quarantineEffectiveness = 0.95;
         this.swerveProb = 0.1;
         this.initialiseMotion();
     }
@@ -19,10 +21,20 @@ class Person {
         this.position = new Vector(
             Math.random() * (this.width - this.radius * 2) + this.radius,
             Math.random() * (this.height - this.radius * 2) + this.radius);
+        this.initialPosition = {...this.position};
         this.velocity = {
             x: Math.cos(RADIANS(this.angle)) * SPEED,
             y: -Math.sin(RADIANS(this.angle)) * SPEED
         };
+    }
+
+    rotateVelocity(angleRadians) {
+        let cos = Math.cos(angleRadians);
+        let sin = Math.sin(angleRadians);
+        let newVelocityX = (this.velocity.x * cos) - (this.velocity.y * sin);
+        let newVelocityY = (this.velocity.x * sin) + (this.velocity.y * cos);
+        this.velocity.x = newVelocityX;
+        this.velocity.y = newVelocityY;
     }
 
     /**
@@ -37,6 +49,7 @@ class Person {
         let newVelocityY = swerve ? (this.velocity.x * sin) + (this.velocity.y * cos) : this.velocity.y;
         this.velocity.x = newVelocityX;
         this.velocity.y = newVelocityY;
+        
     }
 
     tick(population) {
@@ -80,28 +93,54 @@ class Person {
         this.velocity.y -= d * velocity.y;
     }
 
-    handleContact(person){
+    getRandomInRange(min, max) {
+        return Math.random() * (max - min) + min;
+    }
+
+    collideMovingParticleWithQuarantinedPerson(quarantinedPerson, timestep) {
+        let angle = this.getRandomInRange(180, 180);
+        this.rotateVelocity(RADIANS(angle));
+    }
+
+    handleContact(person, timestep){
         if(person.id === this.id){
             return;
         }
 
         const d = this.distanceBetween(person);
-        if(d < this.contaminationRadius){
-            // handle any infectious consequences
+
+        // If the person comes into contact with a person in quarantine, then there is a much reduced
+        // chance that they will infect them.
+        if (this.quarantined || person.quarantined) {
+            if (d < this.quarantineRadius) {
+                if (this.quarantined) {
+                    person.collideMovingParticleWithQuarantinedPerson(this, timestep);
+                } else {
+                    this.collideMovingParticleWithQuarantinedPerson(person, timestep);
+                }
+                
+                this.attemptsToInfect(person, d, true);
+                person.attemptsToInfect(this, d, true);
+
+            }
+        } else if (d < this.contaminationRadius){
+            // Otherwise, the person is coming into contact with a person that is not
+            // in quarantine.
             this.attemptsToInfect(person, d);
             person.attemptsToInfect(this, d);
         }
-
+        
         // handle any other consequences
         //   e.g. exchange tracing info
     }
 
-    attemptsToInfect(person, distance) {
+    attemptsToInfect(person, distance, quarantine=false) {
         if(this.status !== STATUSES.sick) { 
             return;
         }
 
-        const infectionProb = this.hygienePenalty * (1 - distance / this.contaminationRadius);
+        let infectionProb = this.hygienePenalty * (1 - distance / this.contaminationRadius);
+        infectionProb = quarantine ? (1-this.quarantineEffectiveness)*infectionProb : infectionProb;
         if(Math.random() < infectionProb) {
             person.getsInfected();
         }
