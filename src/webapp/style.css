@@ -145,7 +145,6 @@ nav {
 .explanation-scroll {
   margin-left: auto;
   margin-right: auto;
-  text-align: center;
   width: 70%;
 }
 
@@ -222,10 +221,14 @@ figure p {
   position: -webkit-sticky;
   position: sticky;
   width: 100%;
-  margin: 6rem 0 0 0;
+  margin: 6rem 10rem 0 0;
   -webkit-transform: translate3d(0, 0, 0);
   -moz-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
   background-color: #8a8a8a;
   z-index: 0;
+}
+
+img {
+  width: 100%;
 }
