@@ -17,16 +17,12 @@ class Tests {
         }
     }
 
-    isTime(id) {
-        let time = false;
-        if(this._currentTime >= this._testTime) time = true
-        return time;
+    isTime() {
+        return this._currentTime >= this._testTime;
     }
 
     isTested(id) {
-        let test = false;
-        if(this._testIDs.indexOf(id) != -1) test = true;
-        return test;
+        return this._testIDs.indexOf(id) != -1;
     }
 
 };

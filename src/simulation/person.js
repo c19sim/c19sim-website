@@ -68,7 +68,7 @@ class Person {
     handleTests() {
         // If person is an alive and untested subject, it will be tested on test time. If the test is positive , it will be quarantined.
         if (!this.alreadyTested && this.testSubject && this.status !== STATUSES.dead){
-            if (this.tests.isTime(this.id)){
+            if (this.tests.isTime()){
                 this.alreadyTested = true;
                 if (this.status === STATUSES.sick || this.status === STATUSES.critical) this.quarantined = true;
             }
